@@ -38,7 +38,7 @@ class GethostbynameExpertBot(Bot):
                 ip = socket.gethostbyname(event.get(key_fqdn))
             except socket.gaierror as exc:
                 print(repr(exc.args))
-                if exc.args[0] in [-2, -4, -5, -8, -11]:
+                if exc.args[0] in [-2, -3, -4, -5, -8, -11]:
                     pass
                 else:
                     raise
