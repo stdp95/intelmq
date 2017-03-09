@@ -29,6 +29,13 @@ class ReverseDnsExpertBot(Bot):
                                    None)
                            )
         self.pool = Pool(self.parameters.pool_size)
+        self.timeout = getattr(self.parameters, "timeout", None)
+        self.lifetime = getattr(self.parameters, "lifetime", None)
+        self.resolver = resolver.Resolver()
+        if self.timeout:
+            self.resolver.timeout = self.timeout
+        if self.lifetime:
+            self.resolver.lifetime = self.lifetime
 
     def process(self):
         self.pool.spawn(self._process)
@@ -65,7 +72,7 @@ class ReverseDnsExpertBot(Bot):
             else:
                 rev_name = reversename.from_address(ip)
                 try:
-                    result = resolver.query(rev_name, "PTR")
+                    result = self.resolver.query(rev_name, "PTR")
                     expiration = result.expiration
                     result = result[0]
 

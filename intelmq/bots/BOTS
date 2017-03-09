@@ -549,7 +549,9 @@
                 "redis_cache_password": null,
                 "redis_cache_ttl": "86400",
                 "cache_ttl_invalid_response": "60",
-				"pool_size": 10
+				"pool_size": 10,
+				"timeout": 1,
+				"lifetime": 3
             }
         },
         "Taxonomy": {
