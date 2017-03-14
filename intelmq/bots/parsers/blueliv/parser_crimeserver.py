@@ -48,6 +48,18 @@ class BluelivCrimeserverParserBot(Bot):
                 event.add('source.geolocation.cc', item['country'])
             if 'firstSeenAt' in item:
                 event.add('time.source', item['firstSeenAt'][:-4] + '00:00')
+
+            # add some other remaining fields as extra
+            additional = {}
+            if 'status' in item:
+                additional['status'] = item['status']
+            if 'confidence' in item:
+                additional['confidence'] = item['confidence']
+            if 'updatedAt' in item:
+                additional['time_updated'] = item['updatedAt']
+            if 'lastSeenAt' in item:
+                additional['time_last_seen'] = item['lastSeenAt']
+            event.add("extra", additional)
             event.add("raw", json.dumps(item, sort_keys=True))
             self.send_message(event)
         self.acknowledge_message()
