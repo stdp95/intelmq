@@ -74,7 +74,6 @@ class ElasticsearchOutputBot(Bot):
                                       replacement=self.replacement_char)
             op = {"index": {}}
             events.append(op)
-            self.logger.info("event dict: %s"%event_dict)
             events.append(event_dict)
             self.acknowledge_message()
             count += 1
