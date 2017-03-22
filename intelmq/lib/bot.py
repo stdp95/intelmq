@@ -313,6 +313,13 @@ class Bot(object):
             self.__destination_pipeline = None
             self.logger.debug("Disconnected from destination pipeline.")
 
+    def msg_queue_count(self):
+        if self.__source_pipeline:
+            source_pipeline = self.__source_pipeline
+            source_q = source_pipeline.source_queue
+            data_dict =  source_pipeline.count_queued_messages(source_q)
+            return data_dict[source_q]
+
     def send_message(self, *messages):
         for message in messages:
             if not message:
