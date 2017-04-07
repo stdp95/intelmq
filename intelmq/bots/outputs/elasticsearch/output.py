@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
+"""
+The ES-connection can't be closed explicitly.
+"""
 
 from json import loads
 from collections.abc import Mapping
 
-from elasticsearch import Elasticsearch
+try:
+    from elasticsearch import Elasticsearch
+except ImportError:
+    Elasticsearch = None
 
 from intelmq.lib.bot import Bot
 
@@ -21,6 +27,9 @@ def replace_keys(obj, key_char='.', replacement='_'):
 class ElasticsearchOutputBot(Bot):
 
     def init(self):
+        if Elasticsearch is None:
+            raise ValueError('Missing elasticsearch module.')
+
         self.elastic_host = getattr(self.parameters,
                                     'elastic_host', '127.0.0.1')
         self.elastic_port = getattr(self.parameters,
@@ -32,7 +41,7 @@ class ElasticsearchOutputBot(Bot):
         self.replacement_char = getattr(self.parameters,
                                         'replacement_char', '_')
         self.flatten_fields = getattr(self.parameters,
-                                      'flatten_fields', [])
+                                      'flatten_fields', ['extra'])
         if isinstance(self.flatten_fields, str):
             self.flatten_fields = self.flatten_fields.split(',')
 
@@ -48,15 +57,15 @@ class ElasticsearchOutputBot(Bot):
         for field in self.flatten_fields:
             if field in event_dict:
                 val = event_dict[field]
-                # if it string try to convert to json
+                # if it's a string try to parse it as JSON
                 if isinstance(val, str):
                     try:
                         val = loads(val)
-                    except:
+                    except ValueError:
                         pass
                 if isinstance(val, Mapping):
                     for key, value in val.items():
-                        event_dict[key] = value
+                        event_dict[field + '_' + key] = value
                     event_dict.pop(field)
 
         event_dict = replace_keys(event_dict,

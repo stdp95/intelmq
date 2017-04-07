@@ -44,6 +44,9 @@ See the changelog for a full list of changes.
           ...
       ]
 
+### Libraries
+The built-in Alienvault OTX API library has been removed, install the library from github instead. See the [README.md](intelmq/bots/collectors/alienvault_otx/README.md) for details.
+
 ### Postgres databases
 Use the following statement carefully to upgrade your database.
 Take care that no data will be lost, the statement may not be complete!
@@ -84,6 +87,7 @@ ALTER TABLE events
 ```sql
 ALTER TABLE events
    ADD COLUMN "misp.attribute_uuid" varchar(36),
+   ADD COLUMN "malware.hash.sha256" text,
    ALTER COLUMN "misp.event_uuid" SET DATA TYPE varchar(36);
    
 ALTER TABLE events   RENAME COLUMN "misp_uuid" TO "misp.event_uuid";

@@ -42,8 +42,8 @@ class BluelivCrimeserverParserBot(Bot):
                 event.add('source.ip', item['ip'])
             if 'country' in item:
                 event.add('source.geolocation.cc', item['country'])
-            if 'firstSeenAt' in item:
-                event.add('time.source', item['firstSeenAt'][:-4] + '00:00')
+            if 'lastSeenAt' in item:
+                event.add('time.source', item['lastSeenAt'][:-4] + '00:00')
 
             # add some other remaining fields as extra
             additional = {}
@@ -53,10 +53,10 @@ class BluelivCrimeserverParserBot(Bot):
                 additional['confidence'] = item['confidence']
             if 'updatedAt' in item:
                 additional['time_updated'] = item['updatedAt']
-            if 'lastSeenAt' in item:
-                additional['time_last_seen'] = item['lastSeenAt']
+            if 'firstSeenAt' in item:
+                additional['time_first_seen'] = item['firstSeenAt']
             event.add("extra", additional)
-            event.add("raw", json.dumps(item, sort_keys=True))
+            event.add("raw", json.dumps(item, sort_keys=True))  # sorting for undefined order
             self.send_message(event)
         self.acknowledge_message()
 
