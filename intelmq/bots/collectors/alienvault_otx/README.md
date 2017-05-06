@@ -1,4 +1,5 @@
-- Install the libary from github, as there is no package in pypi:
+- Collector for: https://otx.alienvault.com
+- Install the library from GitHub, as there is no package in PyPi:
   ```language
   pip install -r REQUIREMENTS.txt
    ```
