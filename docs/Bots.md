@@ -522,6 +522,21 @@ none
 
 * * *
 
+### IDEA
+
+#### Information:
+* `name:` idea
+* `lookup:` local config
+* `public:` yes
+* `cache (redis db):` none
+* `description:` The bot does a best effort translation of events into the IDEA format.
+
+#### Configuration Parameters:
+
+* `test_mode`: add `Test` category to mark all outgoing IDEA events as informal (meant to simplify setting up and debugging new IDEA producers) (default: `true`)
+
+* * *
+
 ### MaxMind GeoIP
 
 See the README.md
@@ -760,6 +775,27 @@ FIXME
 * * *
 
 
+### Files
+
+#### Information:
+* `name:` files
+* `lookup:` no
+* `public:` yes
+* `cache (redis db):` none
+* `description:` saving of messages as separate files
+
+#### Configuration Parameters:
+
+* `dir`: output directory (default `/opt/intelmq/var/lib/bots/files-output/incoming`)
+* `tmp`: temporary directory (must reside on the same filesystem as `dir`) (default: `/opt/intelmq/var/lib/bots/files-output/tmp`)
+* `suffix`: extension of created files (default `.json`)
+* `hierarchical_output`: if `true`, use nested dictionaries; if `false`, use flat structure with dot separated keys (default)
+* `single_key`: if `none`, the whole event is saved (default); otherwise the bot saves only contents of the specified key
+
+
+* * *
+
+
 ### MongoDB
 
 #### Information:
@@ -846,6 +882,42 @@ from your installation.
 * `host`: destination URL
 * `use_json`: boolean
 
+
+* * *
+
+# SMTP Output Bot
+
+Sends a MIME Multipart message containing the text and the event as CSV for every single event.
+
+#### Information:
+* `name:` smtp
+* `lookup:` no
+* `public:` yes
+* `cache (redis db):` none
+* `description:` Sends events via SMTP
+
+#### Configuration Parameters:
+
+* `fieldnames`: a list of field names to be included in the email, comma separated string or list of strings
+* `mail_from`: string. Supports formatting, see below
+* `mail_to`: string of email addresses, comma separated. Supports formatting, see below
+* `smtp_host`: string
+* `smtp_password`: string or null, Password for authentication on your SMTP server
+* `smtp_port`: port
+* `smtp_username`: string or null, Username for authentication on your SMTP server
+* `ssl`: boolean
+* `starttls`: boolean
+* `subject`: string. Supports formatting, see below
+* `text`: string or null. Supports formatting, see below
+
+For several strings you can use values from the string using the
+[standard Python string format syntax](https://docs.python.org/3/library/string.html#format-string-syntax).
+Access the event's values with `{ev[source.ip]}` and similar.
+
+Authentication is optional. If both username and password are given, these
+mechanism are tried: CRAM-MD5, PLAIN, and LOGIN.
+
+Client certificates are not supported. If `http_verify_cert` is true, TLS certificates are checked.
 
 * * *
 

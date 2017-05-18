@@ -1,9 +1,11 @@
 {
     "Collector": {
-        "Fileinput": {
+        "File": {
             "description": "Fileinput collector fetches data from a file.",
             "module": "intelmq.bots.collectors.file.collector_file",
             "parameters": {
+                "chunk_replicate_header": true,
+                "chunk_size": null,
                 "delete_file": false,
                 "feed": "FileCollector",
                 "provider": "",
@@ -33,6 +35,8 @@
             "description": "Monitor IMAP mailboxes and fetch files from URLs contained in mail bodies",
             "module": "intelmq.bots.collectors.mail.collector_mail_url",
             "parameters": {
+                "chunk_replicate_header": true,
+                "chunk_size": null,
                 "feed": "",
                 "provider": "",
                 "folder": "INBOX",
@@ -114,7 +118,7 @@
                 "ssl_client_certificate": null
             }
         },
-        "XMPP collector": {
+        "XMPP": {
             "description": "This bot can connect to an XMPP Server and one room, in order to receive reports from it. TLS is used by default. rate_limit is ineffective here. Bot can either pass the body or the whole event.",
             "module": "intelmq.bots.collectors.xmpp.collector",
             "parameters": {
@@ -521,6 +525,13 @@
 				"pool_size": 10
 			}
         },
+        "IDEA": {
+            "description": "Converts events into the IDEA format.",
+            "module": "intelmq.bots.experts.idea.expert",
+            "parameters": {
+                "test_mode": false
+            }
+        },
         "MaxMind GeoIP": {
             "description": "MaxMind GeoIP is the bot responsible for adding geolocation information to events (Country, City, Longitude, Latitude, etc..)",
             "module": "intelmq.bots.experts.maxmind_geoip.expert",
@@ -642,6 +653,17 @@
                 "hierarchical_output": false
             }
         },
+        "Files": {
+            "description": "Files is the bot responsible for lockfree saving of events into separate files.",
+            "module": "intelmq.bots.outputs.files.output",
+            "parameters": {
+                "tmp": "/opt/intelmq/var/lib/bots/files-output/tmp",
+                "dir": "/opt/intelmq/var/lib/bots/files-output/incoming",
+                "suffix": ".json",
+                "hierarchical_output": false,
+                "single_key": null
+            }
+        },
         "MongoDB": {
             "description": "MongoDB is the bot responsible to send events to a MongoDB database.",
             "module": "intelmq.bots.outputs.mongodb.output",
@@ -691,6 +713,23 @@
                 "redis_server_ip": "127.0.0.1",
                 "redis_server_port": 6379,
                 "redis_timeout": 50000
+            }
+        },
+        "SMTP": {
+            "description": "Sends single events via SMTP.",
+            "module": "intelmq.bots.outputs.smtp.output",
+            "parameters": {
+                "fieldnames": "classification.taxonomy,classification.type,classification.identifier,source.ip,source.asn,source.port",
+                "mail_from": "cert@localhost",
+                "mail_to": "{ev[source.abuse_contact]}",
+                "smtp_host": "localhost",
+                "smtp_password": null,
+                "smtp_port": null,
+                "smtp_username": null,
+                "ssl": false,
+                "starttls": true,
+                "subject": "Incident in your AS {ev[source.asn]}",
+                "text": "Dear network owner,\\n\\nWe have been informed that the following device might have security problems.\\n\\nYour localhost CERT"
             }
         },
         "Stomp": {
