@@ -8,13 +8,13 @@ from intelmq.lib.bot import Bot
 class IOCExpertBot(Bot):
 
     def process(self):
-        ioc_types = []
+        ioc_types = set()
         event = self.receive_message()
         for key in event:
-            if key.endswith('.ip'): ioc_types.append('ip')
-            if key.endswith('.fqdn'): ioc_types.append('domain')
-            if key.endswith('.url'): ioc_types.append('url')
-            if key.startswith('malware.hash'): ioc_types.append('hash')
+            if key.endswith('.ip'): ioc_types.add('ip')
+            if key.endswith('.fqdn'): ioc_types.add('domain')
+            if key.endswith('.url'): ioc_types.add('url')
+            if key.startswith('malware.hash'): ioc_types.add('hash')
 
         event.add('extra',{'ioc_types': ioc_types})
         self.send_message(event)
