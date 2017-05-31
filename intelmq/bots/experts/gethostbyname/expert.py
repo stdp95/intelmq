@@ -18,14 +18,26 @@ http://www.castaglia.org/proftpd/doc/devel-guide/src/lib/glibc-gai_strerror.c.ht
 We treat some of them as valid (ie record does not exist) and other as temporary or
 permanent failure (default).
 """
-import socket
+
+import gevent
+import gevent.monkey
+gevent.monkey.patch_socket()
+from gevent import socket
+from gevent.pool import Pool
+# import socket
 
 from intelmq.lib.bot import Bot
 
 
 class GethostbynameExpertBot(Bot):
 
+    def init(self):
+        self.pool = Pool(self.parameters.pool_size)
+
     def process(self):
+        self.pool.spawn(self._process)
+
+    def _process(self):
         event = self.receive_message()
 
         for key in ["source.", "destination."]:
@@ -39,7 +51,7 @@ class GethostbynameExpertBot(Bot):
                 ip = socket.gethostbyname(event.get(key_fqdn))
             except socket.gaierror as exc:
                 print(repr(exc.args))
-                if exc.args[0] in [-2, -4, -5, -8, -11]:
+                if exc.args[0] in [-2, -3, -4, -5, -8, -11]:
                     pass
                 else:
                     raise

@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 import json
 
+import gevent
+import gevent.monkey
+gevent.monkey.patch_socket()
+from gevent import socket
+from gevent.pool import Pool
+
 from intelmq.bots.experts.cymru_whois.lib import Cymru
 from intelmq.lib.bot import Bot
 from intelmq.lib.cache import Cache
@@ -20,8 +26,12 @@ class CymruExpertBot(Bot):
                            getattr(self.parameters, "redis_cache_password",
                                    None)
                            )
+        self.pool = Pool(self.parameters.pool_size)
 
     def process(self):
+        self.pool.spawn(self._process)
+
+    def _process(self):
         event = self.receive_message()
 
         keys = ["source.%s", "destination.%s"]

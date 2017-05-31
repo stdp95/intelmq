@@ -63,6 +63,7 @@ class GenericCsvParserBot(ParserBot):
 
     def parse_line(self, row, report):
         event = self.new_event(report)
+        additional = {}
 
         extra = {}
         for key, value in zip(self.columns, row):
@@ -78,7 +79,8 @@ class GenericCsvParserBot(ParserBot):
                 continue
             if key in ["time.source", "time.destination"]:
                 value = TIME_CONVERSIONS[self.time_format](value)
-            elif key.endswith('.url') and '://' not in value:
+            elif key.endswith('.url') and value and value != '' and \
+                len(value) > 0 and '://' not in value:  # nopep8
                 value = self.parameters.default_url_protocol + value
             elif key in ["classification.type"] and self.type_translation:
                 if value in self.type_translation:
@@ -94,6 +96,8 @@ class GenericCsvParserBot(ParserBot):
         if hasattr(self.parameters, 'type')\
                 and "classification.type" not in event:
             event.add('classification.type', self.parameters.type)
+        if len(additional) > 0:
+            event.add('extra', additional)
         event.add("raw", self.recover_line(row))
         if extra:
             event.add('extra', extra)

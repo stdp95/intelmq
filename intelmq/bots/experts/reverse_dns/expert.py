@@ -4,6 +4,10 @@ from datetime import datetime
 
 import dns
 from dns import resolver, reversename
+import gevent
+import gevent.monkey
+gevent.monkey.patch_socket()
+from gevent.pool import Pool
 
 from intelmq.lib.bot import Bot
 from intelmq.lib.cache import Cache
@@ -24,8 +28,19 @@ class ReverseDnsExpertBot(Bot):
                            getattr(self.parameters, "redis_cache_password",
                                    None)
                            )
+        self.pool = Pool(self.parameters.pool_size)
+        self.timeout = getattr(self.parameters, "timeout", None)
+        self.lifetime = getattr(self.parameters, "lifetime", None)
+        self.resolver = resolver.Resolver()
+        if self.timeout:
+            self.resolver.timeout = self.timeout
+        if self.lifetime:
+            self.resolver.lifetime = self.lifetime
 
     def process(self):
+        self.pool.spawn(self._process)
+
+    def _process(self):
         event = self.receive_message()
 
         keys = ["source.%s", "destination.%s"]
@@ -57,7 +72,7 @@ class ReverseDnsExpertBot(Bot):
             else:
                 rev_name = reversename.from_address(ip)
                 try:
-                    result = resolver.query(rev_name, "PTR")
+                    result = self.resolver.query(rev_name, "PTR")
                     expiration = result.expiration
                     result = result[0]
 
@@ -77,7 +92,8 @@ class ReverseDnsExpertBot(Bot):
                                    ttl=int(ttl.total_seconds()))
 
             if result is not None:
-                event.add(key % 'reverse_dns', str(result), overwrite=True)
+                event.add(key % 'reverse_dns', str(result),
+                          overwrite=True, raise_failure=False)
 
         self.send_message(event)
         self.acknowledge_message()
