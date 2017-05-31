@@ -532,6 +532,10 @@
                 "test_mode": false
             }
         },
+        "IOC": {
+            "description": "Provides the available IOCs from an even.",
+            "module": "intelmq.bots.experts.ioc.expert"
+			},
         "MaxMind GeoIP": {
             "description": "MaxMind GeoIP is the bot responsible for adding geolocation information to events (Country, City, Longitude, Latitude, etc..)",
             "module": "intelmq.bots.experts.maxmind_geoip.expert",
