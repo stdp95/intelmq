@@ -16,7 +16,7 @@ class IOCExpertBot(Bot):
             if key.endswith('.url'): ioc_types.add('url')
             if key.startswith('malware.hash'): ioc_types.add('hash')
 
-        event.add('extra',{'ioc_types': ioc_types})
+        event.add('extra',{'ioc_types': list(ioc_types)})
         self.send_message(event)
         self.acknowledge_message()
 
