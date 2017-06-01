@@ -23,7 +23,12 @@ class IOCExpertBot(Bot):
             if key.startswith('malware.hash'):
                 ioc_types.add('hash')
         if 'extra' in event:
-            extra = json.loads(event['extra'])
+            extra = event['extra']
+            if isinstance(extra, str):
+                try:
+                    extra = json.loads(extra)
+                except:
+                    pass
             extra['ioc_types'] = list(ioc_types)
             event.change('extra', extra)
         else:
