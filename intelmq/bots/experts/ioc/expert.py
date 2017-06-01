@@ -14,6 +14,8 @@ class IOCExpertBot(Bot):
         ioc_types = set()
         event = self.receive_message()
         for key in event:
+            if key.startswith('feed.'):
+                continue
             if key.endswith('.ip'):
                 ioc_types.add('ip')
             if key.endswith('.fqdn'):
