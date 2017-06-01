@@ -3,6 +3,8 @@
 IOC expert bot adds ioc array in extra.ioc_type
 """
 
+import json
+
 from intelmq.lib.bot import Bot
 
 
@@ -21,7 +23,7 @@ class IOCExpertBot(Bot):
             if key.startswith('malware.hash'):
                 ioc_types.add('hash')
         if 'extra' in event:
-            extra = event['extra']
+            extra = json.loads(event['extra'])
             extra['ioc_types'] = list(ioc_types)
             event.change('extra', extra)
         else:
