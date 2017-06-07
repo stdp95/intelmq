@@ -9,6 +9,7 @@ default_url_protocol: string
 skip_header: boolean
 type: string
 type_translation: string
+data_type: string
 
 """
 import csv
@@ -22,11 +23,14 @@ from intelmq.lib import utils
 from intelmq.lib.bot import ParserBot
 from intelmq.lib.exceptions import InvalidArgument
 from intelmq.lib.harmonization import DateTime
+import intelmq.lib.exceptions as exceptions
 
 
 TIME_CONVERSIONS = {'timestamp': DateTime.from_timestamp,
                     'windows_nt': DateTime.from_windows_nt,
                     None: lambda value: parse(value, fuzzy=True).isoformat() + " UTC"}
+
+DATA_CONVERSIONS = {'json': lambda data: json.loads(data)}
 
 
 class GenericCsvParserBot(ParserBot):
@@ -38,6 +42,7 @@ class GenericCsvParserBot(ParserBot):
             self.columns = [column.strip() for column in self.columns.split(",")]
 
         self.type_translation = json.loads(getattr(self.parameters, 'type_translation', None) or '{}')
+        self.data_type = json.loads(getattr(self.parameters, 'data_type', None) or '{}')
 
         # prevents empty strings:
         self.column_regex_search = getattr(self.parameters, 'column_regex_search', None) or {}
@@ -67,31 +72,60 @@ class GenericCsvParserBot(ParserBot):
 
         extra = {}
         for key, value in zip(self.columns, row):
-            regex = self.column_regex_search.get(key, None)
-            if regex:
-                search = re.search(regex, value)
-                if search:
-                    value = search.group(0)
-                else:
-                    value = None
 
-            if key in ["__IGNORE__", ""]:
-                continue
-            if key in ["time.source", "time.destination"]:
-                value = TIME_CONVERSIONS[self.time_format](value)
-            elif key.endswith('.url') and value and value != '' and \
-                len(value) > 0 and '://' not in value:  # nopep8
-                value = self.parameters.default_url_protocol + value
-            elif key in ["classification.type"] and self.type_translation:
-                if value in self.type_translation:
-                    value = self.type_translation[value]
-                elif not hasattr(self.parameters, 'type'):
+            stop_processing = False
+            keys = key.split('|') if '|' in key else [key, ]
+            for key in keys:
+                if stop_processing:
+                    break
+                regex = self.column_regex_search.get(key, None)
+                if regex:
+                    search = re.search(regex, value)
+                    if search:
+                        value = search.group(0)
+                    else:
+                        value = None
+
+                if key in ["__IGNORE__", ""]:
+                    stop_processing = True
                     continue
-            if key.startswith('extra.'):
-                if value:
-                    extra[key[6:]] = value
-            else:
-                event.add(key, value)
+
+                if key in self.data_type:
+                    value = DATA_CONVERSIONS[self.data_type[key]](value)
+
+                if key in ["time.source", "time.destination"]:
+                    if self.time_format == 'timestamp':
+                        if len(value) == 12:
+                            value = (int(value) // 100)
+                        elif len(value) == 13:
+                            value = (int(value) // 1000)
+                        else:
+                            value = int(value)
+                        value = TIME_CONVERSIONS[self.time_format](value)
+                    else:
+                        value = TIME_CONVERSIONS[self.time_format](value)
+                elif key.endswith('.url'):
+                    if len(value) < 1:
+                        stop_processing = True
+                        continue
+                    if '://' not in value:
+                        value = self.parameters.default_url_protocol + value
+                elif key in ["classification.type"] and self.type_translation:
+                    if value in self.type_translation:
+                        value = self.type_translation[value]
+                    elif not hasattr(self.parameters, 'type'):
+                        continue
+                if key.startswith('extra.'):
+                    if value:
+                        extra[key[6:]] = value
+                    stop_processing = True
+                    continue
+                else:
+                    stop_processing = event.add(key, value, raise_failure=False)
+
+            # if the value sill remains unadded we need to inform
+            if not stop_processing and value and len(value) > 1:
+                raise exceptions.InvalidValue(key, value)
 
         if hasattr(self.parameters, 'type')\
                 and "classification.type" not in event:
