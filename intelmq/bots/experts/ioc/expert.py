@@ -16,6 +16,12 @@ class IOCExpertBot(Bot):
         for key in event:
             if key.startswith('feed.'):
                 continue
+            if key.startswith('classification.'):
+                continue
+            if key.startswith('event.'):
+                continue
+            if key.startswith('event_description.'):
+                continue
             if key.endswith('.ip'):
                 ioc_types.add('ip')
             if key.endswith('.fqdn'):
