@@ -22,6 +22,8 @@ class IOCExpertBot(Bot):
                 continue
             if key.startswith('event_description.'):
                 continue
+            if key.endswith('.network'):
+                ioc_types.add('cidr')
             if key.endswith('.ip'):
                 ioc_types.add('ip')
             if key.endswith('.fqdn'):
