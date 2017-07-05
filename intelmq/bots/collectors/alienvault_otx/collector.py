@@ -16,11 +16,6 @@ class AlienVaultOTXCollectorBot(CollectorBot):
         if OTXv2 is None:
             raise ValueError('Could not import OTXv2. Please install it.')
 
-        if hasattr(self.parameters, 'http_ssl_proxy'):
-            self.logger.warning("Parameter 'http_ssl_proxy' is deprecated and will be removed in "
-                                "version 1.0!")
-            if not self.parameters.https_proxy:
-                self.parameters.https_proxy = self.parameters.http_ssl_proxy
         self.modified_pulses_only = False
         if hasattr(self.parameters, 'modified_pulses_only'):
             self.modified_pulses_only = self.parameters.modified_pulses_only
