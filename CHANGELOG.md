@@ -1,10 +1,14 @@
 CHANGELOG
 ==========
 
+1.1.0
+-----
+
 1.0.0.rc2 Release candidate
 ---------------------------
 ### Harmonization
 - leading dots in FQDNs are rejected and removed in sanitation (#1022, #1030)
+- added destination.urlpath and source.urlpath to harmonization.
 
 1.0.0.rc1 Release candidate
 ---------------------------
