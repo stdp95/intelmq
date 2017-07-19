@@ -403,6 +403,11 @@
             "module": "intelmq.bots.parsers.turris.parser",
             "parameters": {}
         },
+        "Urandom": {
+            "description": "Urandom Parser is the bot responsible to parse the reports from http://urandom.us.to.",
+            "module": "intelmq.bots.parsers.urandom.parser",
+            "parameters": {}
+        },
         "URLVir": {
             "description": "URLVir Parser is the bot responsible to parse the Export Hosts and Export IP Addresses reports and sanitize the information.",
             "module": "intelmq.bots.parsers.urlvir.parser",
