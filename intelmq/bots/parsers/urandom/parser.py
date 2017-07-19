@@ -55,8 +55,6 @@ class UrandomParserBot(ParserBot):
             if 'SOURCE' in tgvals:
                     extra['source'] = tgvals['SOURCE']
             event.add('classification.type', 'scanner')
-            event.add('event_description.text', 'IPs banned for serious abusing of Bitcash services '
-                                                '(scanning, sniffing, harvesting, dos attacks)')
             event.add('raw', line)
 
             yield event
