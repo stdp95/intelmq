@@ -28,6 +28,7 @@ import intelmq.lib.exceptions as exceptions
 
 TIME_CONVERSIONS = {'timestamp': DateTime.from_timestamp,
                     'windows_nt': DateTime.from_windows_nt,
+                    'epoch_millis': DateTime.from_epoch_millis,
                     None: lambda value: parse(value, fuzzy=True).isoformat() + " UTC"}
 
 DATA_CONVERSIONS = {'json': lambda data: json.loads(data)}
@@ -52,6 +53,12 @@ class GenericCsvParserBot(ParserBot):
             raise InvalidArgument('time_format', got=self.time_format,
                                   expected=list(TIME_CONVERSIONS.keys()),
                                   docs='docs/Bots.md')
+        self.text = getattr(self.parameters, 'text', None)
+        self.text_type = getattr(self.parameters, 'text_type', None)
+        if self.text_type and self.text_type not in ('blacklist', 'whitelist'):
+            raise InvalidArgument('text_type', got=self.text_type,
+                                  expected=("blacklist", "whitelist"),
+                                  docs='docs/Bots.md')
 
     def parse(self, report):
         raw_report = utils.base64_decode(report.get("raw"))
@@ -64,7 +71,17 @@ class GenericCsvParserBot(ParserBot):
             raw_report = raw_report[raw_report.find('\n') + 1:]
         for row in csv.reader(io.StringIO(raw_report),
                               delimiter=str(self.parameters.delimiter)):
-            yield row
+
+            if self.text and self.text_type:
+                text_in_row = self.text in self.parameters.delimiter.join(row)
+                if text_in_row and self.text_type == 'whitelist':
+                    yield row
+                elif not text_in_row and self.text_type == 'blacklist':
+                    yield row
+                else:
+                    continue
+            else:
+                    yield row
 
     def parse_line(self, row, report):
         event = self.new_event(report)
@@ -73,11 +90,9 @@ class GenericCsvParserBot(ParserBot):
         extra = {}
         for key, value in zip(self.columns, row):
 
-            stop_processing = False
-            value = value.strip()
             keys = key.split('|') if '|' in key else [key, ]
             for key in keys:
-                if stop_processing:
+                if isinstance(value, str) and not value:  # empty string is never valid
                     break
                 regex = self.column_regex_search.get(key, None)
                 if regex:
@@ -88,26 +103,15 @@ class GenericCsvParserBot(ParserBot):
                         value = None
 
                 if key in ["__IGNORE__", ""]:
-                    stop_processing = True
-                    continue
+                    break
 
                 if key in self.data_type:
                     value = DATA_CONVERSIONS[self.data_type[key]](value)
 
                 if key in ["time.source", "time.destination"]:
-                    if self.time_format == 'timestamp':
-                        if len(value) == 12:
-                            value = (int(value) // 100)
-                        elif len(value) == 13:
-                            value = (int(value) // 1000)
-                        else:
-                            value = int(value)
-                        value = TIME_CONVERSIONS[self.time_format](value)
-                    else:
-                        value = TIME_CONVERSIONS[self.time_format](value)
+                    value = TIME_CONVERSIONS[self.time_format](value)
                 elif key.endswith('.url'):
-                    if len(value) < 1:
-                        stop_processing = True
+                    if not value:
                         continue
                     if '://' not in value:
                         value = self.parameters.default_url_protocol + value
@@ -116,17 +120,14 @@ class GenericCsvParserBot(ParserBot):
                         value = self.type_translation[value]
                     elif not hasattr(self.parameters, 'type'):
                         continue
-                if key.startswith('extra.'):
-                    if value:
-                        extra[key[6:]] = value
-                    stop_processing = True
-                    continue
-                else:
-                    stop_processing = event.add(key, value, raise_failure=False)
-
-            # if the value sill remains unadded we need to inform
-            if not stop_processing and value and len(value) > 1:
-                raise exceptions.InvalidValue(key, value)
+                elif key.startswith('extra.') and value:
+                    extra[key[6:]] = value
+                    break
+                if event.add(key, value, raise_failure=False):
+                    break
+            else:
+                # if the value sill remains unadded we need to inform
+                raise exceptions.InvalidValue(keys, value)
 
         if hasattr(self.parameters, 'type')\
                 and "classification.type" not in event:
