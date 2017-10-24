@@ -118,10 +118,10 @@ EXAMPLE_EVENT_4 = {
 
 EXAMPLE_EVENT_URI_1 = {
     "__type": "Event",
-    "extra": '{"adversary": "", "author": "bschlaps", "industries": [], '
-             '"pulse": "Alert (TA17-164A)", "pulse_key": '
-             '"5942175dd78f563d01abc79c", "tags": [], "time_updated": '
-             '"2017-06-15T05:17:12.18+00:00"}',
+    "extra.author": "bschlaps",
+    "extra.pulse": "Alert (TA17-164A)",
+    "extra.pulse_key": "5942175dd78f563d01abc79c",
+    "extra.time_updated": "2017-06-15T05:17:12.18+00:00",
     "comment": "HIDDEN COBRA – North Korean Malicious Cyber Activity",
     "feed.name": "AlienVault OTX",
     "classification.type": "blacklist",
@@ -137,10 +137,10 @@ EXAMPLE_EVENT_URI_1 = {
 
 EXAMPLE_EVENT_URI_2 = {
     "__type": "Event",
-    "extra": '{"adversary": "", "author": "bschlaps", "industries": [], '
-             '"pulse": "Alert (TA17-164A)", "pulse_key": '
-             '"5942175dd78f563d01abc79c", "tags": [], "time_updated": '
-             '"2017-06-15T05:17:12.18+00:00"}',
+    "extra.author": "bschlaps",
+    "extra.pulse": "Alert (TA17-164A)",
+    "extra.pulse_key": "5942175dd78f563d01abc79c",
+    "extra.time_updated": "2017-06-15T05:17:12.18+00:00",
     "comment": "HIDDEN COBRA – North Korean Malicious Cyber Activity",
     "feed.name": "AlienVault OTX",
     "classification.type": "blacklist",

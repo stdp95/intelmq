@@ -3,9 +3,12 @@ CHANGELOG
 
 1.1.0
 -----
+Support for Python 3.3 has been dropped, it reached its end of life.
+
 ### Tools
 - `intelmqctl start` prints bot's error messages if it failed to start
 - `intelmqctl check` checks for defaults.conf completeness
+- `intelmqctl list bots -q` only prints the IDs of enabled bots
 
 ### Core
 - Subitems in fields of type `JSONDict` (see below) can be accessed directly. E.g. you can do:
@@ -16,19 +19,49 @@ CHANGELOG
   event['extra'] # gives '{"foo": "bar"}'
   "Old" bots and configurations compatible with 1.0.x do still work.
   Also, the extra field is now properly exploded when exporting events, analogous to all other fields.
+- intelmq.lib.message.Message.add: The parameter overwrite accepts now three different values: True, False and None (new).
+  True: An existing value will be overwritten
+  False: An existing value will not be overwritten (previously and exception has been raised when the value was raised).
+  None (default): If the value exists an KeyExists Exception is thrown (previously the same as False).
+  This allows shorter code in the bots, as an 'overwrite' configuration parameter can be directly passed to the function.
+- Bots can specify a static method `check(parameters)` which can perform individual checks specific to the bot.
+  These functions will be called by `intelmqctl check` if the bot is configured with the given parameters
 
 ### Bots
 #### Collectors
 - Mail: New parameters; `sent_from`: filter messages by sender, `sent_to`: filter messages by recipient
+- bots.experts.maxmind_geoip: New (optional) parameter `overwrite`, by default false. The current default was to overwrite!
 
 ### Harmonization
 - Renamed `JSON` to `JSONDict` and added a new type `JSON`. `JSONDict` saves data internally as JSON, but acts like a dictionary. `JSON` accepts any valid JSON.
+- added destination.urlpath and source.urlpath to harmonization.
 
 #### Parsers
 - changed feednames in `bots.parsers.shadowserver`. Please refer to it's README for the exact changes.
+- The Generic CSV Parser `bots.parsers.generic.parser_csv`:
+  - It is possible to filter the data before processing them using the new parameters `filter_type` and `filter_text`.
+  - It is possible to specify multiple coulmns using `|` character in parameter `columns`.
+  - The parameter `time_format` now supports `'epoch_millis'` for seconds since the Epoch, milliseconds are supported but not used.
 
 ### Requirements
-- Requests is no longer a listed as dependency of the core. For depending bots the requirement is noted in their REQUIREMENTS.txt file
+- Requests is no longer listed as dependency of the core. For depending bots the requirement is noted in their REQUIREMENTS.txt file
+
+1.0.1 Bugfix release
+--------------------
+### Documentation
+- Feeds: use more https:// URLs
+- minor fixes
+
+### Bots
+- bots/experts/ripencc_abuse_contact/expert.py: Use HTTPS URLs for rest.db.ripe.net
+- bots/outputs/file/output.py: properly close the file handle on shutdown
+
+### Core
+- lib/bot: Bots will now log the used intelmq version at startup
+
+### Tools
+- intelmqctl: To check the status of a bot, the command line of the running process is compared to the actual executable of the bot. Otherwise unrelated programs with the same PID are detected as running bot.
+- intelmqctl: enable, disable, check, clear now support the JSON output
 
 1.0.0 Stable release
 --------------------
@@ -38,7 +71,6 @@ CHANGELOG
 
 ### Harmonization
 - leading dots in FQDNs are rejected and removed in sanitation (#1022, #1030)
-- added destination.urlpath and source.urlpath to harmonization.
 
 ### Bots
 - shadowserver parser Accessible-SMB: smb_implant is converted to bool
@@ -83,7 +115,7 @@ CHANGELOG
 - `bots.parsers.alienvault.parser_otx`: handle timestamps without floating point seconds
 
 ### Experts
-- bots.experts.deduplicator: New parameter `bypass` to deactivate deduplication, default: true
+- bots.experts.deduplicator: New parameter `bypass` to deactivate deduplication, default: False
 
 v1.0.0.dev8
 -----------

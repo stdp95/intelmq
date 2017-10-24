@@ -36,7 +36,8 @@ The available feeds are grouped by the source of the feeds. For each feed the co
 - [Spamhaus](#spamhaus)
 - [Taichung](#taichung)
 - [Turris Greylist](#turris-greylist)
-- [Urandom](#urrandom)
+- [Urandom](#urandom)
+- [University of Toulouse Blacklist](#university-of-toulouse-blacklist)
 - [URLVir](#urlvir)
 - [VXVault](#vxvault)
 
@@ -2159,6 +2160,7 @@ http_url: https://www.turris.cz/greylist-data/greylist-latest.csv
 id: turris-greylist-parser
 ```
 
+
 # Urandom
 
 ## Hosts
@@ -2172,13 +2174,13 @@ id: turris-greylist-parser
 **Bot Module:** intelmq.bots.collectors.http.collector_http
 
 **Configuration Parameters:**
-```
+``
 id: urandom-collector
 provider: Urandom
 feed: Urandom <TAG>
 rate_limit: 129600
 http_url: http://urandom.us.to/report.php?ip=&info=&tag=<TAG>&out=csv&submit=go
-```
+``
 
 ### Parser Bot
 
@@ -2187,11 +2189,46 @@ http_url: http://urandom.us.to/report.php?ip=&info=&tag=<TAG>&out=csv&submit=go
 **Bot Module:** intelmq.bots.parsers.urrandom
 
 **Configuration Parameters:**
-```
+``
 id: urandom-parser
-```
+``
 
 **Notes:** This site provides multiple tagged feeds. Check the homepage for tags. Replace <TAG> with appropriate value in configuration.
+
+
+# University of Toulouse Blacklist
+
+**Status:** Active
+
+### Collector Bot
+
+**Bot Name:** Generic URL Fetcher
+
+**Bot Module:** intelmq.bots.collectors.http.collector_http
+
+**Configuration Parameters:**
+``
+id: university-of-toulouse-<collection name>-collector
+provider: University of Toulouse Blacklist
+feed: UT1 <collection name>
+rate_limit: 43200
+http_url: https://dsi.ut-capitole.fr/blacklists/download/<collection name>.tar.gz
+extract_files: True for all or string of file names separated by ","
+``
+**Notes:** The collections and feed description can be found on: https://dsi.ut-capitole.fr/blacklists/.
+
+### Parser Bot
+
+**Bot Name:** Generic CSV
+
+**Bot Module:** intelmq.bots.parsers.generic.parser_csv
+
+**Configuration Parameters:**
+``
+delimiter: \n
+type: <depends on a collection>
+columns:  [<depends on a collection>]
+``
 
 # URLVir
 

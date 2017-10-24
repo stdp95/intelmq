@@ -140,54 +140,54 @@ class ClassificationType(GenericType):
     Type of classification.type field.
 
     Only these values are allowed:
-     * spam
-     * malware
-     * botnet drone
-     * ransomware
-     * dga domain
-     * malware configuration
-     * c&c
-     * scanner
-     * exploit
-     * brute-force
-     * ids alert
-     * defacement
-     * compromised
      * backdoor
+     * blacklist
+     * botnet drone
+     * brute-force
+     * c&c
+     * compromised
      * ddos
+     * defacement
+     * dga domain
      * dropzone
+     * exploit
+     * ids alert
+     * malware
+     * malware configuration
+     * other
      * phishing
      * proxy
-     * vulnerable service
-     * blacklist
-     * other
-     * unknown
+     * ransomware
+     * scanner
+     * spam
      * test
+     * unknown
+     * vulnerable service
     """
 
-    allowed_values = ['spam',
-                      'malware',
+    allowed_values = ['backdoor',
+                      'blacklist',
                       'botnet drone',
-                      'ransomware',
-                      'dga domain',
-                      'malware configuration',
-                      'c&c',
-                      'scanner',
-                      'exploit',
                       'brute-force',
-                      'ids alert',
-                      'defacement',
+                      'c&c',
                       'compromised',
-                      'backdoor',
                       'ddos',
+                      'defacement',
+                      'dga domain',
                       'dropzone',
+                      'exploit',
+                      'ids alert',
+                      'malware',
+                      'malware configuration',
+                      'other',
                       'phishing',
                       'proxy',
-                      'vulnerable service',
-                      'blacklist',
-                      'other',
+                      'ransomware',
+                      'scanner',
+                      'spam',
+                      'test',
                       'unknown',
-                      'test'
+                      'vulnerable service',
                       ]
 
     @staticmethod
@@ -274,7 +274,7 @@ class DateTime(GenericType):
         It ignores the milliseconds, converts it into normal timestamp and processes it.
         """
         bytecount = len(str(tstamp))
-        int_tstamp = tstamp if isinstance(tstamp, int) else int(tstamp)
+        int_tstamp = int(tstamp)
         if bytecount == 10:
             return DateTime.from_timestamp(int_tstamp, tzone)
         if bytecount == 12:

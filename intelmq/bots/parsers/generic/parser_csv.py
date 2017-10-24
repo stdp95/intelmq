@@ -53,10 +53,10 @@ class GenericCsvParserBot(ParserBot):
             raise InvalidArgument('time_format', got=self.time_format,
                                   expected=list(TIME_CONVERSIONS.keys()),
                                   docs='docs/Bots.md')
-        self.text = getattr(self.parameters, 'text', None)
-        self.text_type = getattr(self.parameters, 'text_type', None)
-        if self.text_type and self.text_type not in ('blacklist', 'whitelist'):
-            raise InvalidArgument('text_type', got=self.text_type,
+        self.filter_text = getattr(self.parameters, 'filter_text', None)
+        self.filter_type = getattr(self.parameters, 'filter_type', None)
+        if self.filter_type and self.filter_type not in ('blacklist', 'whitelist'):
+            raise InvalidArgument('filter_type', got=self.filter_type,
                                   expected=("blacklist", "whitelist"),
                                   docs='docs/Bots.md')
 
@@ -72,11 +72,11 @@ class GenericCsvParserBot(ParserBot):
         for row in csv.reader(io.StringIO(raw_report),
                               delimiter=str(self.parameters.delimiter)):
 
-            if self.text and self.text_type:
-                text_in_row = self.text in self.parameters.delimiter.join(row)
-                if text_in_row and self.text_type == 'whitelist':
+            if self.filter_text and self.filter_type:
+                text_in_row = self.filter_text in self.parameters.delimiter.join(row)
+                if text_in_row and self.filter_type == 'whitelist':
                     yield row
-                elif not text_in_row and self.text_type == 'blacklist':
+                elif not text_in_row and self.filter_type == 'blacklist':
                     yield row
                 else:
                     continue
@@ -85,11 +85,8 @@ class GenericCsvParserBot(ParserBot):
 
     def parse_line(self, row, report):
         event = self.new_event(report)
-        additional = {}
 
-        extra = {}
         for key, value in zip(self.columns, row):
-
             keys = key.split('|') if '|' in key else [key, ]
             for key in keys:
                 if isinstance(value, str) and not value:  # empty string is never valid
@@ -120,9 +117,6 @@ class GenericCsvParserBot(ParserBot):
                         value = self.type_translation[value]
                     elif not hasattr(self.parameters, 'type'):
                         continue
-                elif key.startswith('extra.') and value:
-                    extra[key[6:]] = value
-                    break
                 if event.add(key, value, raise_failure=False):
                     break
             else:
@@ -132,11 +126,7 @@ class GenericCsvParserBot(ParserBot):
         if hasattr(self.parameters, 'type')\
                 and "classification.type" not in event:
             event.add('classification.type', self.parameters.type)
-        if len(additional) > 0:
-            event.add('extra', additional)
         event.add("raw", self.recover_line(row))
-        if extra:
-            event.add('extra', extra)
         yield event
 
     recover_line = ParserBot.recover_line_csv
