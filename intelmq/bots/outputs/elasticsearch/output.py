@@ -61,6 +61,13 @@ class ElasticsearchOutputBot(Bot):
         event = self.receive_message()
         event_dict = event.to_dict(hierarchical=False)
 
+        try:
+            time_observation = event_dict["time.observation"]
+            y,m,d = time_observation.split('T')[0].split('-')
+            event_index = 'imq_%s_%s'%(m,y)
+        except:
+            event_index = self.elastic_index
+
         for field in self.flatten_fields:
             if field in event_dict:
                 val = event_dict[field]
@@ -78,7 +85,7 @@ class ElasticsearchOutputBot(Bot):
         event_dict = replace_keys(event_dict,
                                   replacement=self.replacement_char)
 
-        self.es.index(index=self.elastic_index,
+        self.es.index(index=event_index,
                       doc_type=self.elastic_doctype,
                       body=event_dict)
         self.acknowledge_message()
