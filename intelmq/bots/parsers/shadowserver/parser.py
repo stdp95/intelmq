@@ -44,12 +44,8 @@ class ShadowserverParserBot(ParserBot):
             if self.parameters.overwrite:
                 self.overwrite = True
 
-        # Already warned about deprecation
-        self.depr_warning = False
-
     def parse(self, report):
         raw_report = utils.base64_decode(report["raw"])
-        # Temporary fix for https://github.com/certtools/intelmq/issues/967
         raw_report = raw_report.translate({0: None})
         csvr = csv.DictReader(io.StringIO(raw_report))
 
@@ -137,12 +133,11 @@ class ShadowserverParserBot(ParserBot):
                     try:
                         value = conv_func(raw_value)
                     except Exception:
+                        """ fail early and often in this case. We want to be able to convert everything """
                         self.logger.error('Could not convert shadowkey: %r, '
                                           'value: %r via conversion function %r.',
-                                          shadowkey, raw_value, conv_func)
-                        value = None
-                        # """ fail early and often in this case. We want to be able to convert everything """
-                        # self.stop()
+                                          shadowkey, raw_value, conv_func.__name__)
+                        raise
 
             if value is not None:
                 if intelmqkey == 'extra.':

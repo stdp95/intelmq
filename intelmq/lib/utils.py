@@ -40,11 +40,11 @@ LOG_FORMAT_SYSLOG = '%(name)s: %(levelname)s %(message)s'
 
 # Regex for parsing the above LOG_FORMAT
 LOG_REGEX = (r'^(?P<date>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d+) -'
-             r' (?P<bot_id>[-\w]+) - '
+             r' (?P<bot_id>([-\w]+|py\.warnings)) - '
              r'(?P<log_level>[A-Z]+) - '
              r'(?P<message>.+)$')
 SYSLOG_REGEX = ('^(?P<date>\w{3} \d{2} \d{2}:\d{2}:\d{2}) (?P<hostname>[-\.\w]+) '
-                '(?P<bot_id>[-\w]+): (?P<log_level>[A-Z]+) (?P<message>.+)$')
+                '(?P<bot_id>([-\w]+|py\.warnings)): (?P<log_level>[A-Z]+) (?P<message>.+)$')
 
 
 class Parameters(object):
@@ -216,9 +216,11 @@ class StreamHandler(logging.StreamHandler):
 
 
 def log(name: str, log_path: str=intelmq.DEFAULT_LOGGING_PATH, log_level: str="DEBUG",
-        stream: Optional[object]=None, syslog: Union[bool, str, list, tuple]=None):
+        stream: Optional[object]=None, syslog: Union[bool, str, list, tuple]=None,
+        log_format_stream: str=LOG_FORMAT_STREAM):
     """
     Returns a logger instance logging to file and sys.stderr or other stream.
+    The warnings module will log to the same handlers.
 
     Parameters:
         name: filename for logfile or string preceding lines in stream
@@ -231,6 +233,8 @@ def log(name: str, log_path: str=intelmq.DEFAULT_LOGGING_PATH, log_level: str="D
             If False (default), FileHandler will be used. Otherwise either a list/
             tuple with address and UDP port are expected, e.g. `["localhost", 514]`
             or a string with device name, e.g. `"/dev/log"`.
+        log_format_stream:
+            The log format used for streaming output. Default: LOG_FORMAT_STREAM
 
     Returns:
         logger: An instance of logging.Logger
@@ -240,6 +244,9 @@ def log(name: str, log_path: str=intelmq.DEFAULT_LOGGING_PATH, log_level: str="D
         LOG_FORMAT_STREAM: Default log format for stream handler
         LOG_FORMAT_SYSLOG: Default log format for syslog
     """
+    logging.captureWarnings(True)
+    warnings_logger = logging.getLogger("py.warnings")
+
     logger = logging.getLogger(name)
     logger.setLevel(log_level)
 
@@ -257,15 +264,17 @@ def log(name: str, log_path: str=intelmq.DEFAULT_LOGGING_PATH, log_level: str="D
 
     if log_path or syslog:
         logger.addHandler(handler)
+        warnings_logger.addHandler(handler)
 
     if stream or stream is None:
-        console_formatter = logging.Formatter(LOG_FORMAT_STREAM)
+        console_formatter = logging.Formatter(log_format_stream)
         if stream is None:
             console_handler = StreamHandler()
         else:
             console_handler = logging.StreamHandler(stream)
         console_handler.setFormatter(console_formatter)
         logger.addHandler(console_handler)
+        warnings_logger.addHandler(console_handler)
         console_handler.setLevel(log_level)
 
     return logger
