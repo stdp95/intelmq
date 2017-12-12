@@ -66,7 +66,7 @@ class ElasticsearchOutputBot(Bot):
             y,m,d = time_observation.split('T')[0].split('-')
             event_index = 'imq_%s_%s'%(m,y)
         except:
-            event_index = self.elastic_index
+            event_index = 'imq_unsorted'
 
         for field in self.flatten_fields:
             if field in event_dict:
