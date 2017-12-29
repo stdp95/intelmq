@@ -524,6 +524,13 @@
 				"pool_size": 10
 			}
         },
+        "GoogleSafeBrowsing": {
+            "description": "check against google safe browsing.",
+            "module": "intelmq.bots.experts.google_safebrowsing.expert",
+            "parameters": {
+				"service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
+			}
+        },
         "IDEA": {
             "description": "Converts events into the IDEA format.",
             "module": "intelmq.bots.experts.idea.expert",
