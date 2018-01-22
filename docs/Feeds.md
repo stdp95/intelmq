@@ -879,8 +879,9 @@ id: cleanmx-phishing-collector
 provider: CleanMX
 feed: CleanMX Phishing
 rate_limit: 129600
-http_url: http://support.clean-mx.de/clean-mx/xmlphishing?response=alive&format=csv&domain=
+http_url: http://support.clean-mx.de/clean-mx/xmlphishing?response=alive&domain=
 http_user_agent: {{ your user agent }}
+http_timeout_sec: 120
 ```
 
 ### Parser Bot
@@ -910,8 +911,9 @@ id: cleanmx-virus-collector
 provider: CleanMX
 feed: CleanMX Virus
 rate_limit: 129600
-http_url: http://support.clean-mx.de/clean-mx/xmlviruses?response=alive&format=csv&domain=
+http_url: http://support.clean-mx.de/clean-mx/xmlviruses?response=alive&domain=
 http_user_agent: {{ your user agent }}
+http_timeout_sec: 120
 ```
 
 ### Parser Bot
@@ -2374,7 +2376,7 @@ attach_unzip: true
 
 ## Parser Bot
 
-**Bot Name:** VXVault
+**Bot Name:** ZoneH
 
 **Bot Module:** intelmq.bots.parsers.zoneh.parser
 
@@ -2382,4 +2384,3 @@ attach_unzip: true
 ```
 id: zoneh-parser
 ```
-
