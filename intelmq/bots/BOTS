@@ -292,6 +292,7 @@
 	    "module": "intelmq.bots.parsers.ekparser.parser",
 	    "parameters": {}	
 	},
+        
         "Fraunhofer DGA": {
             "description": "Fraunhofer DGA Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.fraunhofer.parser_dga",
@@ -320,6 +321,10 @@
             "parameters": {
                 "error_log_message": false
             }
+        },
+        "Iot Malware": {
+            "description": "Iot Malware parser parses futex.re json data",
+            "module": "intelmq.bots.parsers.iotmalware.parser" 
         },
         "JSON": {
             "description": "JSON Parser converts from a JSON-String into an Event",
