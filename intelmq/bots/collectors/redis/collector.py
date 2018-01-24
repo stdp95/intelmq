@@ -20,19 +20,23 @@ class RedisCollectorBot(CollectorBot):
                                     "localhost")
         self.redis_port = getattr(self.parameters, 'redis_port', 6379)
         self.redis_db = getattr(self.parameters, 'redis_db', 0)
-        if self.queue_name:
-            self.logger.error("Redis Queue Name parameter not provided",
-                              self.parameters.path)
+        if not self.queue_name:
+            self.logger.error("Redis Queue Name parameter not provided")
             self.stop()
         self.redis = redis.Redis(host=self.redis_server, port=self.redis_port,
                                  db=self.redis_db)
 
     def process(self):
-        self.logger.debug("Started looking for data in queue: f{self.queue_name}.")
+        self.logger.debug(f"Looking for data in queue: {self.queue_name}.")
         data_size = self.redis.llen(self.queue_name)
+        self.logger.debug(f"Available items in queue {data_size}")
+        if not data_size or data_size == 0:
+            self.stop()
         data = []
         for i in range(0, data_size):
-            data.append(self.redis.rpop())
+            item = self.redis.rpop(self.queue_name)
+            data.append(str(item,"utf-8"))
+
         data = "\n".join(data)
 
         report = self.new_report()
