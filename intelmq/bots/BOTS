@@ -551,6 +551,13 @@
 				"service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
 			}
         },
+        "hostname":{
+            "description": "This expert adds the Hostname",
+            "module": "intelmq.bots.experts.hostname.expert",
+            "parameters": {
+		"hostname": "<enter hostname>"
+            }    
+        },
         "IDEA": {
             "description": "Converts events into the IDEA format.",
             "module": "intelmq.bots.experts.idea.expert",
