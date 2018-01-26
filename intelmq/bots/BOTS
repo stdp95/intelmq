@@ -604,6 +604,18 @@
                 "configuration_path": "/opt/intelmq/var/lib/bots/modify/modify.conf"
             }
         },
+        "NameServer": {
+            "description": "NameServer experts adds the name servers for source/destination fqdn"
+            "module": "intelmq.bots.experts.nameserver.expert",
+            "parameters": {
+                "redis_cache_db": "5",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400",
+				"pool_size": 10
+            }
+        },
         "RFC 1918": {
             "description": "RFC 1918 removes fields or discards events if an ip or domain is invalid (invalid, local, reserved, documentation). IP, FQDN and URL field names are supported.",
             "module": "intelmq.bots.experts.rfc1918.expert",
