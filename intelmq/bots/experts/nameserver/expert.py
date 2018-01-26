@@ -53,7 +53,7 @@ class ReverseDnsExpertBot(Bot):
 
             fqdn = event.get(fqdn_key)
 
-            cache_key = hashlib.md5(fqdn_key).hexdigest()
+            cache_key = hashlib.md5(fqdn_key.encode('utf-8')).hexdigest()
             cachevalue = self.cache.get(cache_key)
 
             result = None
