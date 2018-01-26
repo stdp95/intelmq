@@ -605,7 +605,7 @@
             }
         },
         "NameServer": {
-            "description": "NameServer experts adds the name servers for source/destination fqdn"
+            "description": "NameServer experts adds the name servers for source/destination fqdn",
             "module": "intelmq.bots.experts.nameserver.expert",
             "parameters": {
                 "redis_cache_db": "5",
