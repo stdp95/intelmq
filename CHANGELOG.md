@@ -10,6 +10,9 @@ Support for Python 3.3 has been dropped, it reached its end of life.
 - `intelmqctl check` checks for defaults.conf completeness
 - `intelmqctl list bots -q` only prints the IDs of enabled bots
 
+### Contrib
+- contrib tool `feeds-config-generator` to automatically generate the collector and parser runtime and pipeline configurations.
+
 ### Core
 - use SIGTERM instead of SIGINT to stop bots (#981)
 - Subitems in fields of type `JSONDict` (see below) can be accessed directly. E.g. you can do:
@@ -40,6 +43,7 @@ Support for Python 3.3 has been dropped, it reached its end of life.
   - New parameter `search_requestor` to search for field Requestor.
   - Empty strings and `null` as value for search parameters are ignored.
   - Empty parameters `attachment_regex` and `url_regex` handled.
+- `bots.collectors.http.collector_http`: Ability to optionally use the current time in parameter `http_url`, added parameter `http_url_formatting`.
 
 #### Parsers
 - changed feednames in `bots.parsers.shadowserver`. Please refer to it's README for the exact changes.
@@ -54,6 +58,7 @@ Support for Python 3.3 has been dropped, it reached its end of life.
 - renamed `bots.parsers.cymru_full_bogons.parser` to `bots.parsers.cymru.parser_full_bogons`, compatibility shim will be removed in version 2.0
 - added `bots.parsers.cymru.parser_cap_program`
 - added `intemq.bots.parsers.zoneh.parser` for ZoneH feeds
+- added `intemq.bots.parsers.sucuri.parser`
 
 #### Experts
 - Added sieve expert for filtering and modifying events (#1083)
@@ -75,6 +80,8 @@ Support for Python 3.3 has been dropped, it reached its end of life.
 ### Core
 - warnings of bots are catched by the logger (#1074)
 - Bots stop when redis gives the error "OOM command not allowed when used memory > 'maxmemory'.".
+- lib/bot: Fixed exitcodes 0 for graceful shutdowns.
+- lib/harmonization: Handle idna encoding error in FQDN sanitation (#1175).
 
 ### Harmonization
 - Rule for harmonization keys is enforced (#1104)
@@ -91,16 +98,19 @@ Support for Python 3.3 has been dropped, it reached its end of life.
 - Shadowserver Parser: Add Accessible Cisco Smart Install
 - CleanMX Phising Parser: Handle new columns `first` and `last` (#1131).
 - CleanMX Phishing Parser: Replace CSV-based parser with XML-based parser fixing regular parser errors. This requires a change of the URL in the collector. (#1135)
-- n6 parser: Fix classification mappings. See NEWS file for changes values.
+- n6 parser: Fix classification mappings. See NEWS file for changes values. (#738)
 
 ### Documentation
 - fix example configuration for modify expert
+- add release procedure documentation
 
 ### Tools
 - intelmqctl now exits with exit codes > 0 when errors happened or the operation was not successful. Also, the status operation exits with 1, if bots are stopped, but enabled. (#997)
 
 ### Tests
 - `tests/lib/test_pipeline`: Redis tests clear all queues before and after tests (#1086)
+= Repaired debian package build on travis (#1169)
+- Warnings are not allowed by default, an allowed count can be specified (#1129).
 
 ### Packaging
 * cron jobs: fix paths of executables

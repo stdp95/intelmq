@@ -199,7 +199,7 @@ class Bot(object):
 
             finally:
                 if getattr(self.parameters, 'testing', False):
-                    self.stop()
+                    self.stop(exitcode=0)
                     break
 
                 if error_on_message or error_on_pipeline:
@@ -227,7 +227,7 @@ class Bot(object):
                         # run_mode: scheduled
                         if self.run_mode == 'scheduled':
                             self.logger.info('Shutting down scheduled bot.')
-                            self.stop()
+                            self.stop(exitcode=0)
 
                         # error_procedure: stop
                         elif self.parameters.error_procedure == "stop":
@@ -240,7 +240,7 @@ class Bot(object):
                 # no errors, check for run mode: scheduled
                 elif self.run_mode == 'scheduled':
                     self.logger.info('Shutting down scheduled bot.')
-                    self.stop()
+                    self.stop(exitcode=0)
 
             self.__handle_sighup()
 
@@ -647,7 +647,10 @@ class ParserBot(Bot):
             self.acknowledge_message()
             return
 
+        events_count = 0
+
         for line in self.parse(report):
+
             if not line:
                 continue
             try:
@@ -663,12 +666,15 @@ class ParserBot(Bot):
                 self.logger.exception('Failed to parse line.')
                 self.__failed.append((traceback.format_exc(), line))
             else:
+                events_count += len(events)
                 self.send_message(*events)
 
         for exc, line in self.__failed:
             report_dump = report.copy()
             report_dump.change('raw', self.recover_line(line))
             self._dump_message(exc, report_dump)
+
+        self.logger.info('Sent %d events and found %d error(s).' % (events_count, len(self.__failed)))
 
         self.acknowledge_message()
 
