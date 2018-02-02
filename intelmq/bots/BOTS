@@ -349,7 +349,9 @@
         },
         "Iot Malware": {
             "description": "Iot Malware parser parses futex.re json data",
-            "module": "intelmq.bots.parsers.iotmalware.parser" 
+            "module": "intelmq.bots.parsers.iotmalware.parser",
+            "parameters": {
+            }
         },
         "JSON": {
             "description": "JSON Parser converts from a JSON-String into an Event",
