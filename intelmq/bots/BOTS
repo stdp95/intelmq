@@ -59,6 +59,7 @@
                 "feed": "",
                 "provider": "",
                 "http_url": "<insert url of feed>",
+                "http_url_formatting": false,
                 "http_username": null,
                 "http_password": null,
                 "ssl_client_certificate": null,
@@ -425,6 +426,11 @@
             "module": "intelmq.bots.parsers.spamhaus.parser_drop",
             "parameters": {}
         },
+        "Sucuri Malware": {
+            "description": "Sucuri Malware parser parses the list of Hidden Iframes and Conditional redirections from Sucuri.",
+            "module": "intelmq.bots.parsers.sucuri.parser",
+            "parameters": {}
+        },
         "Taichung": {
             "description": "Taichung Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.taichung.parser",
@@ -564,7 +570,7 @@
 				"service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
 			}
         },
-        "hostname":{
+        "Add Hostname":{
             "description": "This expert adds the Hostname",
             "module": "intelmq.bots.experts.hostname.expert",
             "parameters": {
@@ -580,8 +586,10 @@
         },
         "IOC": {
             "description": "Provides the available IOCs from an even.",
-            "module": "intelmq.bots.experts.ioc.expert"
-			},
+            "module": "intelmq.bots.experts.ioc.expert",
+            "parameters": {
+            }
+	},
         "MaxMind GeoIP": {
             "description": "MaxMind GeoIP is the bot responsible for adding geolocation information to events (Country, City, Longitude, Latitude, etc..)",
             "module": "intelmq.bots.experts.maxmind_geoip.expert",
