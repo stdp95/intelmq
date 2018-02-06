@@ -15,7 +15,9 @@ class HostnameExpertBot(Bot):
 
     def init(self):
         hostname = socket.gethostname()
-        self.hostname = getattr(self.parameters, 'hostname', hostname)
+        self.hostname = getattr(self.parameters, 'hostname',  None)
+        if self.hostname is None:
+            self.hostname = hostname
 
     def process(self):
         event = self.receive_message()
@@ -32,7 +34,7 @@ class HostnameExpertBot(Bot):
             # how do we handle this?
             else:
                 extra = {"extra": extra,
-                         'hostname': self.hostname}
+                         "hostname": self.hostname}
             event.change('extra', extra)
 
         else:   # no extra add extra
