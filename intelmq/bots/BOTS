@@ -634,7 +634,7 @@
                 "redis_cache_port": "6379",
                 "redis_cache_password": null,
                 "redis_cache_ttl": "86400",
-				"pool_size": 10
+		"pool_size": 10
             }
         },
         "RFC 1918": {
