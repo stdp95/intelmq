@@ -17,7 +17,7 @@ class EkParserBot(Bot):
         for data in item['data']:
             event = self.new_event(report)
             event.add('classification.type','malware')
-            event.add('classification.taxonomy','malacious code')
+            #event.add('classification.taxonomy','malacious code')
             if 'tags' in data:
                 event.add('extra', {"tags": data['tags']})
             if 'url' in data:
