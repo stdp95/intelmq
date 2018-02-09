@@ -625,6 +625,19 @@
                 "pool_size": 10
             }
         },
+        "Rbl Check": {
+            "description": "Rbl extracts data from source/destination and add it to the event.",
+            "module": "intelmq.bots.experts.rblcheck.expert",
+            "parameters": {
+                "service_url": "http://127.0.0.1:5000/api/v1/lookup/short/",
+                "redis_cache_db": "5",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400",
+		"pool_size": 10
+            }
+        },
         "RFC 1918": {
             "description": "RFC 1918 removes fields or discards events if an ip or domain is invalid (invalid, local, reserved, documentation). IP, FQDN and URL field names are supported.",
             "module": "intelmq.bots.experts.rfc1918.expert",
