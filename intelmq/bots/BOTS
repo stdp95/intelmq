@@ -310,12 +310,11 @@
             "module": "intelmq.bots.parsers.dyn.parser",
             "parameters": {}
         },
-	"EK Parser": {
-	    "description": "EK Parser is the bot responsible to parse the report and sanitize the information.",
-	    "module": "intelmq.bots.parsers.ekparser.parser",
-	    "parameters": {}	
+    	"EK Parser": {
+        	"description": "EK Parser is the bot responsible to parse the report and sanitize the information.",
+	        "module": "intelmq.bots.parsers.ekparser.parser",
+        	"parameters": {}    
 	},
-        
         "Fraunhofer DGA": {
             "description": "Fraunhofer DGA Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.fraunhofer.parser_dga",
@@ -350,8 +349,7 @@
         "Iot Malware": {
             "description": "Iot Malware parser parses futex.re json data",
             "module": "intelmq.bots.parsers.iotmalware.parser",
-            "parameters": {
-            }
+            "parameters": {}
         },
         "JSON": {
             "description": "JSON Parser converts from a JSON-String into an Event",
@@ -503,7 +501,7 @@
                 "redis_cache_port": "6379",
                 "redis_cache_password": null,
                 "redis_cache_ttl": "86400",
-				"pool_size": 10
+        	"pool_size": 10
             }
         },
         "Deduplicator": {
@@ -562,21 +560,22 @@
             "description": "fqdn2ip is the bot responsible to parsing the ip from the fqdn.",
             "module": "intelmq.bots.experts.gethostbyname.expert",
             "parameters": {
-				"pool_size": 10
-			}
+        	"pool_size": 10
+            }
         },
         "GoogleSafeBrowsing": {
             "description": "check against google safe browsing.",
             "module": "intelmq.bots.experts.google_safebrowsing.expert",
             "parameters": {
-				"service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
-			}
+                "service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
+            }
         },
         "Add Hostname":{
             "description": "This expert adds the Hostname",
             "module": "intelmq.bots.experts.hostname.expert",
             "parameters": {
-		"hostname": null
+       		 "hostname": null,
+		 "field_name": "processing_host"
             }    
         },
         "IDEA": {
@@ -591,7 +590,7 @@
             "module": "intelmq.bots.experts.ioc.expert",
             "parameters": {
             }
-	},
+    },
         "MaxMind GeoIP": {
             "description": "MaxMind GeoIP is the bot responsible for adding geolocation information to events (Country, City, Longitude, Latitude, etc..)",
             "module": "intelmq.bots.experts.maxmind_geoip.expert",
@@ -623,7 +622,7 @@
                 "redis_cache_port": "6379",
                 "redis_cache_password": null,
                 "redis_cache_ttl": "86400",
-				"pool_size": 10
+                "pool_size": 10
             }
         },
         "RFC 1918": {
@@ -658,9 +657,9 @@
                 "redis_cache_password": null,
                 "redis_cache_ttl": "86400",
                 "cache_ttl_invalid_response": "60",
-				"pool_size": 10,
-				"timeout": 1,
-				"lifetime": 3
+                "pool_size": 10,
+                "timeout": 1,
+                "lifetime": 3
             }
         },
         "Taxonomy": {
