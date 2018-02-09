@@ -576,7 +576,7 @@
             "description": "This expert adds the Hostname",
             "module": "intelmq.bots.experts.hostname.expert",
             "parameters": {
-		"hostname": "<enter hostname>"
+		"hostname": null
             }    
         },
         "IDEA": {
