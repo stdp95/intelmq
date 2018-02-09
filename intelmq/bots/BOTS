@@ -59,6 +59,7 @@
                 "feed": "",
                 "provider": "",
                 "http_url": "<insert url of feed>",
+                "http_url_formatting": false,
                 "http_username": null,
                 "http_password": null,
                 "ssl_client_certificate": null,
@@ -91,6 +92,19 @@
                 "misp_tag_to_process": "<insert MISP tag for events to be processed>",
                 "misp_url": "<insert url of MISP server (with trailing '/')>",
                 "misp_verify": true,
+                "rate_limit": 3600
+            }
+        },
+        "Redis Generic": {
+            "description": "Collect events from a Redis Queue.",
+            "module": "intelmq.bots.collectors.redis.collector",
+            "parameters": {
+                "feed": "redis",
+                "provider": "",
+                "redis_server": "localhost",
+                "queue_name": "",
+                "redis_port": 6379,
+                "redis_db": 0,
                 "rate_limit": 3600
             }
         },
@@ -296,12 +310,11 @@
             "module": "intelmq.bots.parsers.dyn.parser",
             "parameters": {}
         },
-	"EK Parser": {
-	    "description": "EK Parser is the bot responsible to parse the report and sanitize the information.",
-	    "module": "intelmq.bots.parsers.ekparser.parser",
-	    "parameters": {}	
+    	"EK Parser": {
+        	"description": "EK Parser is the bot responsible to parse the report and sanitize the information.",
+	        "module": "intelmq.bots.parsers.ekparser.parser",
+        	"parameters": {}    
 	},
-        
         "Fraunhofer DGA": {
             "description": "Fraunhofer DGA Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.fraunhofer.parser_dga",
@@ -335,7 +348,8 @@
         },
         "Iot Malware": {
             "description": "Iot Malware parser parses futex.re json data",
-            "module": "intelmq.bots.parsers.iotmalware.parser" 
+            "module": "intelmq.bots.parsers.iotmalware.parser",
+            "parameters": {}
         },
         "JSON": {
             "description": "JSON Parser converts from a JSON-String into an Event",
@@ -417,6 +431,11 @@
             "module": "intelmq.bots.parsers.spamhaus.parser_drop",
             "parameters": {}
         },
+        "Sucuri Malware": {
+            "description": "Sucuri Malware parser parses the list of Hidden Iframes and Conditional redirections from Sucuri.",
+            "module": "intelmq.bots.parsers.sucuri.parser",
+            "parameters": {}
+        },
         "Taichung": {
             "description": "Taichung Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.taichung.parser",
@@ -487,7 +506,7 @@
                 "redis_cache_port": "6379",
                 "redis_cache_password": null,
                 "redis_cache_ttl": "86400",
-				"pool_size": 10
+        	"pool_size": 10
             }
         },
         "Deduplicator": {
@@ -546,21 +565,22 @@
             "description": "fqdn2ip is the bot responsible to parsing the ip from the fqdn.",
             "module": "intelmq.bots.experts.gethostbyname.expert",
             "parameters": {
-				"pool_size": 10
-			}
+        	"pool_size": 10
+            }
         },
         "GoogleSafeBrowsing": {
             "description": "check against google safe browsing.",
             "module": "intelmq.bots.experts.google_safebrowsing.expert",
             "parameters": {
-				"service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
-			}
+                "service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
+            }
         },
-        "hostname":{
+        "Add Hostname":{
             "description": "This expert adds the Hostname",
             "module": "intelmq.bots.experts.hostname.expert",
             "parameters": {
-		"hostname": "<enter hostname>"
+       		 "hostname": null,
+		 "field_name": "processing_host"
             }    
         },
         "IDEA": {
@@ -572,8 +592,10 @@
         },
         "IOC": {
             "description": "Provides the available IOCs from an even.",
-            "module": "intelmq.bots.experts.ioc.expert"
-			},
+            "module": "intelmq.bots.experts.ioc.expert",
+            "parameters": {
+            }
+    },
         "MaxMind GeoIP": {
             "description": "MaxMind GeoIP is the bot responsible for adding geolocation information to events (Country, City, Longitude, Latitude, etc..)",
             "module": "intelmq.bots.experts.maxmind_geoip.expert",
@@ -594,6 +616,18 @@
             "module": "intelmq.bots.experts.modify.expert",
             "parameters": {
                 "configuration_path": "/opt/intelmq/var/lib/bots/modify/modify.conf"
+            }
+        },
+        "NameServer": {
+            "description": "NameServer experts adds the name servers for source/destination fqdn",
+            "module": "intelmq.bots.experts.nameserver.expert",
+            "parameters": {
+                "redis_cache_db": "5",
+                "redis_cache_host": "127.0.0.1",
+                "redis_cache_port": "6379",
+                "redis_cache_password": null,
+                "redis_cache_ttl": "86400",
+                "pool_size": 10
             }
         },
         "RFC 1918": {
@@ -628,9 +662,9 @@
                 "redis_cache_password": null,
                 "redis_cache_ttl": "86400",
                 "cache_ttl_invalid_response": "60",
-				"pool_size": 10,
-				"timeout": 1,
-				"lifetime": 3
+                "pool_size": 10,
+                "timeout": 1,
+                "lifetime": 3
             }
         },
         "Taxonomy": {
