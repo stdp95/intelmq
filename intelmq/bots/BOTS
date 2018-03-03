@@ -408,6 +408,11 @@
             "module": "intelmq.bots.parsers.openphish.parser",
             "parameters": {}
         },
+        "OpenPhish Commercial": {
+            "description": "OpenPhish Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.openphish.parser_commercial",
+            "parameters": {}
+        },
         "PhishTank": {
             "description": "PhishTank Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.phishtank.parser",
@@ -447,6 +452,11 @@
             "parameters": {
                 "error_log_message": false
             }
+        },
+        "Threatminer": {
+            "description": "Threatminer Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.threatminer.parser",
+            "parameters": {}
         },
         "Turris Greylist": {
             "description": "Turris Greylist Parser is the bot responsible to parse the report and sanitize the information.",
