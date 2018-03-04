@@ -1,0 +1,269 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta name="description" content="artists against 419: A visual answer to 419" />
+<meta name="keywords" content="artists against 419,artists,419,MUGU,scam baiting,art,fake bank,advance fee fraud,non delivery scams,Cameroonian scams" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" /> <meta http-equiv="expires" content="0" /> <meta http-equiv="content-language" content="en" />
+<meta name="robots" content="noarchive" />
+<meta name="robots" content="index,follow" />
+<meta name="revisit-after" content="7 days" />
+<meta http-equiv="X-Frame-Options" content="deny">
+<link rel="StyleSheet" href="theme/generic.css" type="text/css" title="generic stylesheet" media="screen" />
+<link rel="StyleSheet" href="theme/aa_fakebanks.css" type="text/css" title="generic stylesheet" media="screen" />
+<link rel="stylesheet" href="theme/copyright.css" type="text/css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="Fake Sites RSS" href="https://aa419.org/rss/rss.php" />
+<title>
+			aa419 - Fake Sites Database		</title>
+</head>
+<body bgcolor="#ffffff">
+<div id="banner"><a href="fakebankslist.php"><img src="theme/aa419logo.jpg" alt="The Artists Against 419 fakesites database" height="80"></img></a></div>
+<div id="menu">
+<ul>
+<li><a href="/" title="artists against 419">artists against 419</a>
+<ul>
+<li><a href="http://wiki.aa419.org"><b>main site</b></a></li>
+<li><a href="http://blog.aa419.org"><b>blog</b></a></li>
+<li><a href="http://forum.aa419.org"><b>forum</b></a></li>
+<li><a href="http://wiki.aa419.org/index.php/Special:Contact"><b>contact us</b></a></li>
+</ul>
+</li>
+<li><a href="fakebankslist.php" style="color: #F62124" title="Click here for our database of fake sites">fake site database</a>
+<ul>
+<li><a href="login.php" title="your account">your account</a></li>
+<li><a href="signup.php" title="Sign up to fake sites">register</a></li> </ul>
+</li> </ul>
+</div>
+<div id="main">
+<h2>Fake Sites Database</h2>
+<div id="Disclaimer">
+<span class="disclaimer">
+<strong>DISCLAIMER:</strong>
+artists against 419 ("aa419") identifies fraudulent websites and makes this data available as a public service. We discourage any form of communication with these websites. If you chose to communicate with them you do so at your own risk.
+<br /><br />
+The publicly available whois information listed in the aa419 database was accurate on the date that the website information was entered into the aa419 database. Inclusion in our database does not necessarily indicate criminal activity on the part of the registrant, host or any affiliated companies or individuals.
+<br /><br />
+All data is provided for your personal information only. aa419 and its members shall not be liable for any errors in the database or for any actions taken in reliance thereon.
+</span>
+</div>
+<div class="phpmaker">
+<form action="fakebankslist.php" class="center">
+Quick Search
+<input type="text" name="psearch" size="20" />
+<input type="submit" name="Submit" value="GO" />&nbsp;&nbsp;
+<a href="fakebankslist.php?cmd=reset"><span class="phpmaker">Show all</span></a>&nbsp;&nbsp;
+<a href="fakebankssrch.php"><span class="phpmaker">Advanced Search</span></a>
+<br />
+<input type="radio" name="psearchtype" value="" checked="checked" /><span class="phpmaker">Exact phrase</span>&nbsp;&nbsp;
+<input type="radio" name="psearchtype" value="AND" /><span class="phpmaker">All words</span>&nbsp;&nbsp;
+<input type="radio" name="psearchtype" value="OR" /><span class="phpmaker">Any word</span>
+</form>
+</div>
+<a href="fakebankslist.php?start=1"><span class="phpmaker"><b>Prev</b></span></a>
+ <a href="fakebankslist.php?start=1"><span class="phpmaker"><b>1</b></span></a>
+<a href="fakebankslist.php?start=21"><span class="phpmaker"><b>2</b></span></a>
+<a href="fakebankslist.php?start=41"><span class="phpmaker"><b>3</b></span></a>
+<a href="fakebankslist.php?start=61"><span class="phpmaker"><b>4</b></span></a>
+<a href="fakebankslist.php?start=81"><span class="phpmaker"><b>5</b></span></a>
+<a href="fakebankslist.php?start=101"><span class="phpmaker"><b>6</b></span></a>
+<a href="fakebankslist.php?start=121"><span class="phpmaker"><b>7</b></span></a>
+<a href="fakebankslist.php?start=141"><span class="phpmaker"><b>8</b></span></a>
+<a href="fakebankslist.php?start=161"><span class="phpmaker"><b>9</b></span></a>
+<a href="fakebankslist.php?start=181"><span class="phpmaker"><b>10</b></span></a>
+<a href="fakebankslist.php?start=201"><span class="phpmaker"><b>11-20</b></span></a>
+<a href="fakebankslist.php?start=20"><span class="phpmaker"><b>Next</b></span></a>
+<br />
+<span class="phpmaker"> Records to 19 of 128673</span>
+<br />
+<table class="ewTable" summary="A list of currently known fake banks.">
+<tr class="ewTableHeader">
+<th>&nbsp;</th>
+<th><a href="fakebankslist.php?order=Url">Url&nbsp;</a></th>
+<th><a href="fakebankslist.php?order=SiteName">Site Name&nbsp;</a></th>
+<th><a href="fakebankslist.php?order=Status">Status&nbsp;</a> </th>
+<th><a href="fakebankslist.php?order=DateAdded">Date Added&nbsp;</a></th>
+<th><a href="fakebankslist.php?order=Updated">Updated&nbsp;</a></th>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130092"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.coastaloilgascorp.com" rel="nofollow" target="_blank">http://www.coastaloilgascorp.com</a>&nbsp;</td>
+<td>Coastal Oil &amp; Gas Corp.&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 09:47&nbsp;</td>
+<td>2018-03-03 09:47&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130091"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.vprivateonline.com" rel="nofollow" target="_blank">http://www.vprivateonline.com</a>&nbsp;</td>
+<td>VP Investment Bank&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 08:55&nbsp;</td>
+<td>2018-03-03 08:55&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130090"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.stbosa.co.za" rel="nofollow" target="_blank">http://www.stbosa.co.za</a>&nbsp;</td>
+<td>Standard Bank of South Africa&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 08:37&nbsp;</td>
+<td>2018-03-03 08:37&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130089"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.myaccount.regionalcoast.com" rel="nofollow" target="_blank">http://www.myaccount.regionalcoast.com</a>&nbsp;</td>
+<td>Regional Coast Bank Of Switzerland&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 08:13&nbsp;</td>
+<td>2018-03-03 08:13&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130088"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.cbngov-ng.com" rel="nofollow" target="_blank">http://www.cbngov-ng.com</a>&nbsp;</td>
+<td>Central Bank of Nigeria&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 08:06&nbsp;</td>
+<td>2018-03-03 08:06&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130087"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.financegov-ng.com" rel="nofollow" target="_blank">http://www.financegov-ng.com</a>&nbsp;</td>
+<td>Federal Ministry of Finance Nigeria&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 07:58&nbsp;</td>
+<td>2018-03-03 07:58&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130086"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.santander-bk.com" rel="nofollow" target="_blank">http://www.santander-bk.com</a>&nbsp;</td>
+<td>Santander Bank&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 07:11&nbsp;</td>
+<td>2018-03-03 07:11&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130085"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.fbi-usgov.com" rel="nofollow" target="_blank">http://www.fbi-usgov.com</a>&nbsp;</td>
+<td>Fund Monitoring Unit (FBI)&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 07:03&nbsp;</td>
+<td>2018-03-03 07:03&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130084"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="https://www.uniqueshihtzuandmix.com" rel="nofollow" target="_blank">https://www.uniqueshihtzuandmix.com</a>&nbsp;</td>
+<td>Unique Shih Tzu &amp; Mix&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 00:55&nbsp;</td>
+<td>2018-03-03 00:55&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130083"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.shinnybulldogs.com" rel="nofollow" target="_blank">http://www.shinnybulldogs.com</a>&nbsp;</td>
+<td>Shinny Bulldogs&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 00:37&nbsp;</td>
+<td>2018-03-03 00:37&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130082"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.spacklinebulldogs.com" rel="nofollow" target="_blank">http://www.spacklinebulldogs.com</a>&nbsp;</td>
+<td>Spackline French Bulldogs&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 00:33&nbsp;</td>
+<td>2018-03-03 00:34&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130081"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="https://www.equitytrustinvtbk.com" rel="nofollow" target="_blank">https://www.equitytrustinvtbk.com</a>&nbsp;</td>
+<td>Equity Trust Investment Bank&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-03 00:21&nbsp;</td>
+<td>2018-03-03 00:21&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130080"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="https://www.jdwilliamssustainable.com" rel="nofollow" target="_blank">https://www.jdwilliamssustainable.com</a>&nbsp;</td>
+<td>JD Williams Sustainable Engineering Firm&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 23:58&nbsp;</td>
+<td>2018-03-02 23:58&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130079"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.alrayanacc.com" rel="nofollow" target="_blank">http://www.alrayanacc.com</a>&nbsp;</td>
+<td>Masraf al Rayan&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 23:28&nbsp;</td>
+<td>2018-03-02 23:28&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130078"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.hdfcsacess.com" rel="nofollow" target="_blank">http://www.hdfcsacess.com</a>&nbsp;</td>
+<td>HDFC Bank&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 19:33&nbsp;</td>
+<td>2018-03-02 19:33&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130077"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.diamondoline.com" rel="nofollow" target="_blank">http://www.diamondoline.com</a>&nbsp;</td>
+<td>Diamond Bank&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 19:15&nbsp;</td>
+<td>2018-03-02 19:15&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130076"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.wintrustacces.com" rel="nofollow" target="_blank">http://www.wintrustacces.com</a>&nbsp;</td>
+<td>WinTrust Bank Plc&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 18:04&nbsp;</td>
+<td>2018-03-02 18:04&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130075"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.crelann.com" rel="nofollow" target="_blank">http://www.crelann.com</a>&nbsp;</td>
+<td>Crelan&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 17:30&nbsp;</td>
+<td>2018-03-02 17:30&nbsp;</td>
+</tr>
+<tr class="ewTableRow">
+<td><a href="fakebanksview.php?key=130074"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.rbiionline.com" rel="nofollow" target="_blank">http://www.rbiionline.com</a>&nbsp;</td>
+<td>Reserve Bank of India&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 12:17&nbsp;</td>
+<td>2018-03-02 12:17&nbsp;</td>
+</tr>
+<tr class="ewTableAltRow">
+<td><a href="fakebanksview.php?key=130073"><span class="phpmaker"><img src='images/browse.gif' alt='View' width='16' height='16' border='0' /></span></a></td>
+<td><a href="http://www.diamondonln.com" rel="nofollow" target="_blank">http://www.diamondonln.com</a>&nbsp;</td>
+<td>Diamond Bank Plc&nbsp;</td>
+<td style="background-color: rgba(255,0,0,0.15);">active&nbsp;</td>
+<td>2018-03-02 10:31&nbsp;</td>
+<td>2018-03-02 10:39&nbsp;</td>
+</tr>
+</table>
+<br /><br />
+<table class="blockcopyright">
+<tr>
+<td>
+<p class="copyright">This database is the property of Artists Against 419. It is made available on the
+express terms that it may not be copied or distributed to any third party unless explicitly
+authorised by Artists Against 419.</p>
+</td>
+</tr>
+</table>
+</div>
+<div id="footer">
+<p><small>Copyright &copy; <a href="http://www.aa419.org">Artists Against 419</a></small></p>
+<p>
+<a href="https://validator.w3.org/check?uri=referer" target="_blank"><img style="border:0;width:88px;height:31px" src="https://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a>
+<a href="https://jigsaw.w3.org/css-validator/" target="_blank"><img style="border:0;width:88px;height:31px" src="https://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS!" /></a>
+<a href="https://www.w3.org/WAI/WCAG1A-Conformance" title="Explanation of Level A Conformance" target="_blank"><img border="0" height="32" width="88" src="https://www.w3.org/WAI/wcag1A" alt="Level A conformance icon, W3C-WAI Web Content Accessibility Guidelines 1.0" /></a>
+</p>
+</div>
+</body>
+</html>
