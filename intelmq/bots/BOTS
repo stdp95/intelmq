@@ -205,6 +205,11 @@
         }
     },
     "Parser": {
+        "Aa419": {
+            "description": "Aa419 is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.aa419.parser",
+            "parameters": {}
+        },
         "Abuse.ch Domain": {
             "description": "Abuse.ch Domain Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.abusech.parser_domain",
@@ -268,6 +273,16 @@
         "CleanMX": {
             "description": "CleanMX Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.cleanmx.parser",
+            "parameters": {}
+        },
+        "Cybercrime": {
+            "description": "Cybercrime is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.cybercrime.parser",
+            "parameters": {}
+        },
+        "Cybercrime2": {
+            "description": "Malwareurl is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.cybercrime2.parser",
             "parameters": {}
         },
         "Cymru Full Bogons": {
@@ -386,6 +401,11 @@
         "Malwareurl": {
             "description": "Malwareurl is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.malwareurl.parser",
+            "parameters": {}
+        },
+        "Malwareurl2": {
+            "description": "Malwareurl is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.malwareurl2.parser",
             "parameters": {}
         },
         "N6Stomp": {
