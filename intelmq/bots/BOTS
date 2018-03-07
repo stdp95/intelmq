@@ -281,7 +281,7 @@
             "parameters": {}
         },
         "Cybercrime2": {
-            "description": "Malwareurl is the bot responsible to parse the report and sanitize the information.",
+            "description": "Cybercrime is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.cybercrime2.parser",
             "parameters": {}
         },
