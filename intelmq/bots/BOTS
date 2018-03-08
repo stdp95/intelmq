@@ -275,14 +275,14 @@
             "module": "intelmq.bots.parsers.cleanmx.parser",
             "parameters": {}
         },
-        "Cybercrime": {
+        "Cybercrime Ccam": {
             "description": "Cybercrime is the bot responsible to parse the report and sanitize the information.",
-            "module": "intelmq.bots.parsers.cybercrime.parser",
+            "module": "intelmq.bots.parsers.cybercrime_ccam.parser",
             "parameters": {}
         },
-        "Cybercrime2": {
+        "Cybercrime Index": {
             "description": "Cybercrime is the bot responsible to parse the report and sanitize the information.",
-            "module": "intelmq.bots.parsers.cybercrime2.parser",
+            "module": "intelmq.bots.parsers.cybercrime_index.parser",
             "parameters": {}
         },
         "Cymru Full Bogons": {

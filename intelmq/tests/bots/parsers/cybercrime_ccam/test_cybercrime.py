@@ -3,7 +3,7 @@ import os
 import unittest
 
 import intelmq.lib.test as test
-from intelmq.bots.parsers.cybercrime.parser import CybercrimeParserBot
+from intelmq.bots.parsers.cybercrime_ccam.parser import CybercrimeParserBot
 from intelmq.lib import utils
 
 with open(os.path.join(os.path.dirname(__file__), 'test_cybercrime.data'), 'rb') as handle:

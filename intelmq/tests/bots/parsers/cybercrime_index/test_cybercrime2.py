@@ -3,7 +3,7 @@ import os
 import unittest
 
 import intelmq.lib.test as test
-from intelmq.bots.parsers.cybercrime2.parser import CybercrimeParserBot
+from intelmq.bots.parsers.cybercrime_index.parser import CybercrimeParserBot
 from intelmq.lib import utils
 
 with open(os.path.join(os.path.dirname(__file__), 'test_malwareurl.data'), 'rb') as handle:
