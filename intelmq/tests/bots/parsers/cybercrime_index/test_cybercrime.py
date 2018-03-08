@@ -6,7 +6,7 @@ import intelmq.lib.test as test
 from intelmq.bots.parsers.cybercrime_index.parser import CybercrimeParserBot
 from intelmq.lib import utils
 
-with open(os.path.join(os.path.dirname(__file__), 'test_malwareurl.data'), 'rb') as handle:
+with open(os.path.join(os.path.dirname(__file__), 'test_cybercrime.data'), 'rb') as handle:
     REPORT_DATA = handle.read()
 
 
