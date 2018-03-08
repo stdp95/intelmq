@@ -70,6 +70,9 @@ class MISPParserBot(Bot):
         # get the attributes from the event
         event_attributes = misp_event['Attribute']
 
+        if 'Orgc' in misp_event:
+            feed = misp_event.get('Orgc')
+
         # payload type - get malware variant for the event
         malware_variant = None
         for attribute in event_attributes:
@@ -97,6 +100,9 @@ class MISPParserBot(Bot):
 
                 # Create and send the intelmq event
                 event = self.new_event(report)
+                if 'feed.name' in event and feed:
+                    event.add('feed.name', feed['name'] + " MISP Feed", overwrite=True)
+                    event.add('feed.provider', feed['name'], overwrite=True)
                 event.add('raw', json.dumps(attribute, sort_keys=True))
                 event.add(self.MISP_TYPE_MAPPING[type_], value)
                 event.add('misp.event_uuid', misp_event['uuid'])
