@@ -280,6 +280,11 @@
             "module": "intelmq.bots.parsers.cybercrime_ccam.parser",
             "parameters": {}
         },
+        "Cybercrime Ccpm": {
+            "description": "Cybercrime Ccpm is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.cybercrime_ccpm.parser",
+            "parameters": {}
+        },
         "Cybercrime Index": {
             "description": "Cybercrime is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.cybercrime_index.parser",
