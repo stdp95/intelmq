@@ -28,7 +28,7 @@ EVENT1 = {"feed.url": "https://cybercrime-tracker.net/ccam.php",
           "malware.hash.md5": "3c496efa6c735a6b6853f719c67b3691b904846b",
           "malware.name": "tayuya",
           "feed.name": "cyber crime Feed",
-          "classification.type": "malware",
+          "classification.type": "c&c",
           "time.source": "2018-01-20T10:21:54+00:00",
           "__type": "Event"}
 EVENT2 = {"__type": "Event",
@@ -43,7 +43,7 @@ EVENT2 = {"__type": "Event",
           "malware.hash.md5": "7cf5457a10be944e943ca4bad0c799e14f4b717f",
           "malware.name": "tayuya",
           "time.source": "2018-01-20T10:18:03+00:00",
-          "classification.type": "malware",
+          "classification.type": "c&c",
           "feed.url": "https://cybercrime-tracker.net/ccam.php",
           "source.ip": "154.16.138.86"}
 
