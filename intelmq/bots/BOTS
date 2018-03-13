@@ -81,7 +81,7 @@
                 "rate_limit": 3600
             }
         },
-        "Honeydb": {
+        "Honeydb Collector": {
             "description": "Honeydb Collector is the bot responsible to get the report through the API.",
             "module": "intelmq.bots.collectors.honeydb.collector_honeydb",
             "parameters": {
@@ -365,7 +365,7 @@
                 "type_translation": null
             }
         },
-        "Honeydb": {
+        "Honeydb Parser": {
             "description": "Honeydb parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.honeydb.parser",
             "parameters": {}
