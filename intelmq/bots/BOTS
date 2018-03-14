@@ -81,6 +81,17 @@
                 "rate_limit": 3600
             }
         },
+        "Honeydb Collector": {
+            "description": "Honeydb Collector is the bot responsible to get the report through the API.",
+            "module": "intelmq.bots.collectors.honeydb.collector_honeydb",
+            "parameters": {
+                "api_id": "<insert your api id>",
+                "api_key": "<insert your api key>",
+                "feed": "Honeydb feed",
+                "provider": "Honeydb",
+                "rate_limit": 3600
+            }
+        },
         "MISP Generic": {
             "description": "Collect events from a MISP server.",
             "module": "intelmq.bots.collectors.misp.collector",
@@ -375,6 +386,11 @@
                 "type": "c&c",
                 "type_translation": null
             }
+        },
+        "Honeydb Parser": {
+            "description": "Honeydb parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.honeydb.parser",
+            "parameters": {}
         },
         "HpHosts": {
             "description": "HpHosts Parser is the bot responsible to parse the report and sanitize the information.",
