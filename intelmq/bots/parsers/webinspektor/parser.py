@@ -42,7 +42,8 @@ class WebinspektorParserBot(ParserBot):
                 event.add("classification.type", "blacklist")
                 index += 1
                 parser.feed(report_list[index])
-                event.add("classification.taxonomy", parser.lsData)
+                event.add("classification.identifier", parser.lsData)
+                event.add("classification.taxonomy", "other")
                 index += 1
                 parser.feed(report_list[index])
                 event.add("time.source", parser.lsData)
