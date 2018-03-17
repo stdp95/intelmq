@@ -27,9 +27,9 @@ class RedisCollectorBot(CollectorBot):
                                  db=self.redis_db)
 
     def process(self):
-        self.logger.debug(f"Looking for data in queue: {self.queue_name}.")
+        self.logger.debug("Looking for data in queue: %s"% self.queue_name)
         data_size = self.redis.llen(self.queue_name)
-        self.logger.debug(f"Available items in queue {data_size}")
+        self.logger.debug("Available items in queue: %s"% data_size)
         if not data_size or data_size == 0:
             self.stop()
         data = []

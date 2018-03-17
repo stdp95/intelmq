@@ -500,6 +500,11 @@
             "module": "intelmq.bots.parsers.threatminer.parser",
             "parameters": {}
         },
+        "TLS": {
+            "description": "Tls Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.tls.parser",
+            "parameters": {}
+        },
         "Turris Greylist": {
             "description": "Turris Greylist Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.turris.parser",
@@ -508,6 +513,11 @@
         "Urandom": {
             "description": "Urandom Parser is the bot responsible to parse the reports from http://urandom.us.to.",
             "module": "intelmq.bots.parsers.urandom.parser",
+            "parameters": {}
+        },
+        "Url Query": {
+            "description": "Url Query Parser is the bot responsible to parse the reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.urlquery.parser",
             "parameters": {}
         },
         "Twitter": {
