@@ -516,6 +516,11 @@
             "module": "intelmq.bots.parsers.threatminer.parser",
             "parameters": {}
         },
+        "Threat Expert": {
+            "description": "Threat Expert Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.threatexpert.parser",
+            "parameters": {}
+        },
         "Turris Greylist": {
             "description": "Turris Greylist Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.turris.parser",
