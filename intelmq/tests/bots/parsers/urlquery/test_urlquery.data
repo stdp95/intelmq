@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<META NAME="ROBOTS" CONTENT="NOINDEX, FOLLOW">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="urlquery.net is a service for scanning URLs and detecting web-based malware. Providing detailed information about the browsers activity while visiting a site." />
+	<meta name="keywords" content="exploit-kits,malware,url,sandbox,scan,scanner,reputation,web,website,webpage,analyze,report,query,browser,chrome,firefox" />
+
+	<link type="text/css" href="/static/org/main.css" rel="stylesheet" /> 
+	<link type="text/css" href="/static/org/jquery-ui-1.9.2.custom.css" rel="stylesheet" />  
+	<script type="text/javascript" src="/static/org/javascript/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="/static/org/javascript/jquery-ui-1.9.2.custom.min.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+
+	<style type="text/css">	.ui-dialog-buttonpane { text-align: right; } </style>
+
+	<title>urlquery.net - URL Scanner</title>
+  
+
+	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			$(function()
+			{
+				$( "#accordion" ).accordion({
+					collapsible: true,
+					active: false
+				});
+			});
+      
+			$.extend($.ui.dialog.prototype, { 
+				'addbutton': function(buttonName, func) {	
+					var buttons = this.element.dialog('option', 'buttons'); 
+					buttons[buttonName] = func; 
+					this.element.dialog('option', 'buttons', buttons); 
+				} 
+			});
+
+			$.extend($.ui.dialog.prototype, { 
+				'removebutton': function(buttonName) {	
+					var buttons = this.element.dialog('option', 'buttons'); 
+					delete buttons[buttonName]; 
+					this.element.dialog('option', 'buttons', buttons); 
+				} 
+			});
+      
+			$( "#dialog-message" ).dialog({
+				autoOpen: false,
+				modal: true,
+				resizable: false,
+				width: 400,
+		        buttons: {
+        		    Close: function() {
+              			$( this ).dialog( "close" );
+            		}
+        		}
+			});
+
+			document.getElementById("url").focus();
+		});
+
+		function onSubmit(token) {
+			var api={};
+			api["url"] = $("#url").val();
+			api["useragent"] = $("#useragent").val();
+			api["referer"] = $("#referer").val();
+			tmp = JSON.stringify(api);
+
+			$.ajax({
+				url: '/submit/url',
+				type: 'post',
+				data: tmp,
+				headers: {
+					"reCaptcha-Response": token
+				},
+				dataType: 'json',
+				success: function (data) {
+					statusMessage(data);
+				}
+			});
+
+			$("#dialog-message").html("Looking up host..");
+			$("#dialog-message").dialog('open');
+			return false;
+		};
+
+		function btn_cancel()
+		{
+			abort = true; 
+			$("#dialog-message").dialog('close');
+		}
+
+		function statusMessage(obj)
+		{
+			if(obj.status == "queued")
+			{
+				
+				window.location.href = "/queue/"+obj.queue_id.toString();
+			}
+			else
+			{
+				$("#dialog-message").html("Invalid URL or failed to DNS lookup.");
+				$("#dialog-message").dialog('open');
+			}
+		}
+    </script>
+</head>
+<body>
+
+	<div id="dialog-message" title="Submitting URL">
+	</div>
+  
+	<div id='main' role="main">
+		<br />
+	</div>
+	
+	
+	<div id="container">
+		<div id='main' role="main">
+			<br />
+		</div>
+		
+	        
+    <div id="branding" role="banner">
+        
+        <nav id="subnavigation">
+            <ul id="news-filter">
+                <li  class='active'  ><a href="/">urlquery</a></li>
+                <li  ><a href="/search">search</a></li>
+                <li  ><a href="/stats">statistics</a></li>
+                <li  ><a href="/about">about</a></li>
+            </ul>
+            
+            
+            <ul id="news-view">
+                <li><a href="/login">login / register</a></li>
+            </ul>
+            
+        </nav>
+        
+
+        <div class="clear"></div>
+    </div>
+
+    
+		
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-21985291-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-21985291-1');
+</script>
+
+		
+		<div id="wrapper">
+
+			
+			<div id="body">
+			
+				
+				<div id="main" role="main">
+					
+					<section id="news">
+				
+				
+						<header class="ui-state-highlight ui-corner-all" style="font-size: 14px; padding:15px;background-color:#c5c9ce;">
+						<strong>urlquery.net is a service for detecting and analyzing web-based malware. It provides detailed information about the activities a
+				browser does while visiting a site and presents the information for further analysis.</strong>
+							<br/><br/>
+						Learn about the <a style='text-decoration:underline;' href='/info'>advanced settings</a>
+						</header>
+						
+						<form id="submit">
+								<p>
+									<table style="display: block; border=0;">
+										<tr>
+											<td><b>Profile URL:&nbsp;&nbsp;</b><input id="url" type="text" size="100%"/></td>
+											<td><button id="uq-submit" class="g-recaptcha" data-sitekey="6Lc7JigUAAAAAOSlkioh7fOB7XBce-JwVU8OCPZG" data-callback="onSubmit">GO!</button></td>
+										</tr>
+									</table>									
+								</p>
+								
+								
+								<div id="accordion" >
+									<h3><a href="#">Advanced settings:</a></h3>
+									<div style="display: block; height: 106px; border=0;">
+										<table style="display: block; border=0;">
+											<thead>
+												<td width="90px" ></td><td></td>
+											</thead>
+											<tbody>
+												<tr>
+													<td align="left">User Agent:</td>
+													<td>
+														<select id="useragent" style="width:95%;">
+															<option>Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13</option>
+															<option>Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0</option>
+															<option>Mozilla/5.0 (Linux; Android 4.3; GT-I9300 Build/JSS15J) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36</option>
+															<option>Mozilla/5.0 (Linux; Android 4.0.4; DROID RAZR Build/6.7.2-180_DHD-16_M4-31) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/</option>
+															<option>Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10</option>
+															<option>Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko) Chrome/8.0.552.237 Safari/534.1</option>
+															<option>Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727)</option>
+															<option>Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)</option>
+															<option>Opera/9.80 (Windows NT 6.1; U; en) Presto/2.5.24 Version/10.54</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td align="left">Referer:</td>
+													<td><input id="referer" type="text" style="width:94%"/></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+						</form>
+				<br />
+					
+
+
+					
+						<table class="test">
+							<thead>
+								<tr class="header"><th width="90px">Date (CET)</th><th width="80px">UQ / IDS / BL</th><th>URL</th><th width="110px">IP</th></tr>
+							</thead>
+							<tbody>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:15:16 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='bit.do/f293e752f' href='report/b1b1d52f-d4b4-4345-9948-68be40aede07'>bit.do/f293e752f</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />54.83.52.76</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:15:15 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='https://survey.qualtrics.com/j' href='report/d44224dc-d17e-430f-aba9-8895d57ca05a'>https://survey.qualtrics.com/j</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />104.123.136.147</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:15:16 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='z15.invisionfree.com/New_Age_Wrestling/index.php?act=buddy' href='report/d84cbfa0-483d-48ea-9e02-49fee1be2a21'>z15.invisionfree.com/New_Age_Wrestling/index. (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />169.53.20.129</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:15:08 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='live.welcome.bet/1346397' href='report/4aee70e8-b3aa-4ac7-a859-b804bb902fbf'>live.welcome.bet/1346397</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />212.124.125.34</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:15:05 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='z15.invisionfree.com/New_Age_Wrestling/index.php?act=buddy' href='report/a13752b5-48d1-4c79-a52e-e56522f898ab'>z15.invisionfree.com/New_Age_Wrestling/index. (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />169.53.20.129</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:15:04 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='fccorp.co.za/php/db_template.php' href='report/1a351fd6-4e52-4a1f-9913-be2bf48a5507'>fccorp.co.za/php/db_template.php</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/za.png' align='left' title='South Africa' width='16' height='11' />196.40.100.202</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:15:04 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='37.143.95.178' href='report/996ec81c-8557-4b24-a846-3a9ee13433c9'>37.143.95.178</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/ua.png' align='left' title='Ukraine' width='16' height='11' />37.143.95.178</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:14:51 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='z15.invisionfree.com/New_Age_Wrestling/index.php?act=buddy' href='report/84bee121-a330-469b-b40e-48fcd4e3ff6e'>z15.invisionfree.com/New_Age_Wrestling/index. (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />169.53.20.129</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:14:39 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='https://vwgroupcontactcenter.eu.qualtrics.com/jfe/form/SV_7nup4WNhpc8Wn3?Q_DL=exs58O3aUHfAUuh_9nup4WNhpc8Wn53_CGC_1xC2uOLQvAmlD&amp;Q_CHL=email' href='report/99736eac-5b1f-4a28-a40c-ad3ad6477423'>https://vwgroupcontactcenter.eu.qualtrics.com (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />104.123.136.147</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:14:39 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='z15.invisionfree.com/New_Age_Wrestling/index.php?act=buddy' href='report/d7089dea-aa09-4f9f-84aa-46502d760477'>z15.invisionfree.com/New_Age_Wrestling/index. (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />169.53.20.129</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:14:39 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='downloads.solarwinds.com/solarwinds/Release/FreeTool/SolarWinds-ResponseTimeViewer-v1.0-GNS.exe' href='report/17b0b23c-3b0f-4d2b-ac89-a71e5c81e081'>downloads.solarwinds.com/solarwinds/Release/F (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/nl.png' align='left' title='Netherlands' width='16' height='11' />104.66.121.172</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:14:37 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='https://ivideogps.today/way/fdoc/plx/page/index.php' href='report/7d16b200-5284-49e3-98da-f397d8950bcd'>https://ivideogps.today/way/fdoc/plx/page/ind (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/de.png' align='left' title='Germany' width='16' height='11' />81.169.145.92</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:14:28 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='z15.invisionfree.com/New_Age_Wrestling/index.php?act=buddy' href='report/df49477e-c46c-48c2-98e0-9951eba88af1'>z15.invisionfree.com/New_Age_Wrestling/index. (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />169.53.20.129</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:14:25 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='z15.invisionfree.com/New_Age_Wrestling/index.php?act=buddy' href='report/7a3ae573-d3e4-4a37-807c-598c20db5181'>z15.invisionfree.com/New_Age_Wrestling/index. (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />169.53.20.129</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:14:16 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='scansupervisionprotection.info/de4134f25e3c6d28/htm/11/setup.exe' href='report/6d14ddd4-cabb-4dfa-88ae-f94e00cb65ed'>scansupervisionprotection.info/de4134f25e3c6d (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/au.png' align='left' title='Australia' width='16' height='11' />103.224.212.222</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:14:14 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='hartenboswaterpark.co.za/templates/db_template.php' href='report/dcbef18e-8f3f-493a-9050-14faeb73cf35'>hartenboswaterpark.co.za/templates/db_template.php</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/za.png' align='left' title='South Africa' width='16' height='11' />196.40.100.202</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:14:13 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 1</b></td>
+										<td><a title='z15.invisionfree.com/New_Age_Wrestling/index.php?act=buddy' href='report/7f23987b-cc57-43c3-a10c-f5dc9bd8e2f0'>z15.invisionfree.com/New_Age_Wrestling/index. (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />169.53.20.129</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:14:02 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='https://polarisaero.com/forums/topic/live-watch-bangladesh-vs-sri-lanka-6th-t20-live-streaming-free/' href='report/406a8f76-1730-4415-a7fb-c43ecdd30709'>https://polarisaero.com/forums/topic/live-wat (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />104.196.96.63</td>
+									</tr>
+								
+									<tr class='even_highlight'>
+										<td><nobr><center>2018-03-16 16:13:51 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='tbrnews.com/calendar/full-free-watch-fullmetal-alchemist-online-free-hd-movie/event_26cb2968-2928-11e8-b9d8-308d99b28de4.html' href='report/2410a3eb-a084-4503-b159-e2c27be6115d'>tbrnews.com/calendar/full-free-watch-fullmeta (...)</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/us.png' align='left' title='United States' width='16' height='11' />192.104.182.109</td>
+									</tr>
+								
+									<tr class='odd_highlight'>
+										<td><nobr><center>2018-03-16 16:13:52 CET</center></nobr></td>
+										<td align='center'><b>0 - 0 - 0</b></td>
+										<td><a title='cloudhostdesign.com//db_template.php' href='report/8b0e1714-c10b-4a69-92b2-c1d2dfaa746c'>cloudhostdesign.com//db_template.php</a></td>
+										<td style='text-align:center;vertical-align=middle;'><img src='/static/org/images/flags/za.png' align='left' title='South Africa' width='16' height='11' />196.40.100.202</td>
+									</tr>
+								
+							</tbody>
+						</table>
+
+						<br/>
+						<div align=center>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle"
+    style="display:inline-block;width:728px;height:90px"
+    data-ad-client="ca-pub-1735799678798963"
+    data-ad-slot="1866633533"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+					</section>
+		
+				</div>
+				
+			
+				<div class="clear"></div>
+			</div>
+			
+		
+		</div>
+		
+		  	
+	<footer id="siteinfo">
+		<div>
+			<h3>About urlQuery</h3>
+			<ul>
+				<li><a href="/about">About Us</a></li>
+				<li><a href="/tos">Terms of Service</a></li>
+				<li><a href="/tos">Privacy Statement</a></li>
+			</ul>
+		</div>
+		<div>
+			<h3>Follow Us</h3>
+			<ul>
+				<li><a href="http://www.twitter.com/urlquery" rel="nofollow">Twitter</a></li>
+			</ul>
+		</div>
+		<div id="siteinfo-content">
+			<p class="copyright">
+				<strong>urlquery.net &copy;</strong> Since 2011, powered by penguins<br />
+				<br />
+			</p>
+		</div>
+
+	</footer>
+	
+
+	
+	</div>
+	
+</body>
+</html>
