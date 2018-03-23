@@ -55,6 +55,7 @@ CHANGELOG
 - `bots.collectors.http.collector_http`: Ability to optionally use the current time in parameter `http_url`, added parameter `http_url_formatting`.
 - `bots.collectors.stomp.collector`: Heartbeat timeout is now logged with log level info instead of warning.
 - added `intelmq.bots.collectors.twitter.collector_twitter`
+- `bots.collectors.microsoft.collector_interlow`: added for MS interflow API
 
 #### Parsers
 - changed feednames in `bots.parsers.shadowserver`. Please refer to it's README for the exact changes.
@@ -74,6 +75,9 @@ CHANGELOG
 - added `intelmq.bots.parsers.threatminer.parser`
 - added `intelmq.bots.parsers.webinspektor.parser`
 - added `intelmq.bots.parsers.twitter.parser`
+- added `intelmq.bots.parsers.microsoft.parser_ctip`
+ * ignore the invalid IP '0.0.0.0' for the destination
+ * fix the raw/dumped messages, did not contain the paling list previously.
 
 #### Experts
 - Added sieve expert for filtering and modifying events (#1083)
@@ -95,7 +99,9 @@ CHANGELOG
 ### Contrib
 
 ### Core
-- lib/harmonization: FQDN validation now handles None correctly (raised an Exception).
+- lib/harmonization:
+ * FQDN validation now handles None correctly (raised an Exception).
+ * Fixed several sanitize() methods, the generic sanitation method were called by is_valid, not the sanitize methods (#1219).
 
 ### Harmonization
 
@@ -106,6 +112,13 @@ CHANGELOG
 - Shadowserver parser:
  * The fields `url` and `http_url` now handle HTTP URL paths and HTTP requests for all feeds (#1204).
  * The conversion function `validate_fqdn` now handles empty strings correctly.
+ * Feed 'drone (hadoop)':
+   * Correct validation of field `cc_dns`, will now only be added as `destination.fqdn` if correct FQDN, otherwise ignored. Previously this field could be saved in extra containing an IP address.
+   * Adding more mappings for added columns.
+ * A lot of newly added fields and fixed conversions.
+- Spamhaus CERT parser:
+ * fix parsing for bot names 'openrelay' and 'iotdrp'.
+- CleanM phishing parser: handle FQDNs in IP column (#1162).
 
 #### Experts
 
@@ -114,10 +127,14 @@ CHANGELOG
 ### Documentation
 
 ### Tools
+- intelmqctl check: Fixed and extended message for 'run_mode' check.
 
 ### Tests
+- lib/bot: No dumps will be written during tests (#934).
+- lib/test: Expand regular expression on python version to match pre-releases (debian testing).
 
 ### Packaging
+* Static data is now included in source tarballs, development files are excluded
 
 ### Known issues
 
