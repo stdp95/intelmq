@@ -439,6 +439,11 @@
             "module": "intelmq.bots.parsers.malc0de.parser",
             "parameters": {}
         },
+        "Malekal Malwaredb": {
+            "description": "Malekal malwaredb  Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.malekal.parser",
+            "parameters": {}
+        },
         "Malware Domain List": {
             "description": "Malware Domain List Parser is the bot responsible to parse the report and sanitize the information.",
             "module": "intelmq.bots.parsers.malwaredomainlist.parser",
