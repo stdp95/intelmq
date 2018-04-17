@@ -17,6 +17,7 @@ CHANGELOG
 - `intelmq_gen_feeds_docs` add to bin directory, allows generating the Feeds.md documentation file from feeds.yaml
 - `intelmqctl run` parameter for showing a sent message
 - `intelmqctl run` if message is sent to a non-default path, it is printed out
+- `intelmqctl restart` bug fix; returned some half-nonsense, now returns return state of start and stop operation in a list, see #1226
 
 
 ### Contrib
@@ -101,6 +102,8 @@ CHANGELOG
 
 1.0.4 Bugfix release (unreleased)
 ---------------------------------
+- make code style compatible to pycodestyle 2.4.0
+
 ### Contrib
 
 ### Core
@@ -111,6 +114,8 @@ CHANGELOG
 ### Harmonization
 
 ### Bots
+* Use the new pypi website at https://pypi.org/ everywhere.
+
 #### Collectors
 
 #### Parsers
@@ -120,7 +125,11 @@ CHANGELOG
   * Feed 'drone (hadoop)':
     * Correct validation of field `cc_dns`, will now only be added as `destination.fqdn` if correct FQDN, otherwise ignored. Previously this field could be saved in extra containing an IP address.
     * Adding more mappings for added columns.
+  * Added feeds:
+    * Drone-Brute-Force
+    * IPv6-Sinkhole-HTTP-Drone
   * A lot of newly added fields and fixed conversions.
+  * Optional fields can now use one column multiple times.
 - Spamhaus CERT parser:
  * fix parsing and classification for bot names 'openrelay', 'iotrdp', 'sshauth', 'telnetauth', 'iotcmd', 'iotuser', 'wpscanner', 'w_wplogin', 'iotscan'
    see the NEWS file - Postgresql section - for all changes.
