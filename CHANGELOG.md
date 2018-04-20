@@ -1,6 +1,11 @@
 CHANGELOG
 ==========
 
+2.0.0 (unreleased)
+------------------
+### Core
+- `intelmq.__version_info__` is now a list of integers (for numeric values)
+
 1.1.0 (unreleased)
 ------------------
 - Support for Python 3.3 has been dropped, it reached its end of life.
