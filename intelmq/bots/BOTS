@@ -695,6 +695,12 @@
                 "service_url": "http://127.0.0.1:5000/gglsbl/lookup/"
             }
         },
+        "Add Hash": {
+            "description": "Hash is the bot responsible for adding hash of message to message if it is not present.",
+            "module": "intelmq.bots.experts.hash.expert",
+            "parameters": {
+            }
+        },
         "Add Hostname":{
             "description": "This expert adds the Hostname",
             "module": "intelmq.bots.experts.hostname.expert",
