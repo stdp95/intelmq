@@ -522,6 +522,11 @@
             "module": "intelmq.bots.parsers.spamhaus.parser_drop",
             "parameters": {}
         },
+        "Spy One": {
+            "description": "Spy one  Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.spyone.parser",
+            "parameters": {}
+        },
         "Sucuri Malware": {
             "description": "Sucuri Malware parser parses the list of Hidden Iframes and Conditional redirections from Sucuri.",
             "module": "intelmq.bots.parsers.sucuri.parser",
@@ -533,6 +538,11 @@
             "parameters": {
                 "error_log_message": false
             }
+        },
+        "Talos": {
+            "description": "Talos  Parser is the bot responsible to parse the report and sanitize the information.",
+            "module": "intelmq.bots.parsers.talos.parser",
+            "parameters": {}
         },
         "Threatminer": {
             "description": "Threatminer Parser is the bot responsible to parse the report and sanitize the information.",
