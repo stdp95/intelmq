@@ -730,6 +730,12 @@
                 "overwrite": false
             }
         },
+        "MalShare": {
+            "description": "MalShare bot is responsible for adding data into the events through hash values",
+            "module": "intelmq.bots.experts.malshare.expert",
+            "parameters": {
+            }
+    },
         "AddTime": {
             "description": "AddTime bot adds timestamp in extra field",
             "module": "intelmq.bots.experts.add_time.expert",
