@@ -479,6 +479,11 @@
             "module": "intelmq.bots.parsers.netlab_360.parser",
             "parameters": {}
         },
+        "Norton": {
+            "description": "Norton Feed Parser is the bot responsible to parse the reports and sanitize the information.",
+            "module": "intelmq.bots.parsers.norton_safeweb.parser",
+            "parameters": {}
+        },
         "Nothink": {
             "description": "Nothink Feed Parser is the bot responsible to parse the SNMP, SSH, Telnet, and DNS Attack reports and sanitize the information.",
             "module": "intelmq.bots.parsers.nothink.parser",
