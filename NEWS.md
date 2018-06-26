@@ -9,6 +9,10 @@ See the changelog for a full list of changes.
 - `intelmqctl start` prints bot's error messages in stderr if it failed to start.
 - `intelmqctl check` checks if all keys in the packaged defaults.conf are present in the current configuration.
 
+### Contrib / Modify Expert
+The malware name rules of the modify expert have been migrated to the [Malware Name Mapping repository](https://github.com/certtools/malware_name_mapping).
+See contrib/malware_name_mapping/ for automated download and conversion.
+
 ### Harmonization
 - added `destination.urlpath` and `source.urlpath` to harmonization.
 
@@ -33,6 +37,11 @@ Please check if you did use these feed names and eventually adapt them for your 
 ALTER TABLE events
    ADD COLUMN "destination.urlpath" text,
    ADD COLUMN "source.urlpath" text;
+ALTER TABLE events
+   ADD COLUMN "destination.domain_suffix" text,
+   ADD COLUMN "source.domain_suffix" text;
+ALTER TABLE events
+   ADD COLUMN "tld" text;
 UPDATE events
    SET "classification.identifier" = 'openmdns'
    WHERE "classification.identifier" = 'open-mdns' AND "feed.name" = 'Open-mDNS';
@@ -138,7 +147,15 @@ UPDATE events
    WHERE "classification.identifier" = 'accessiblevnc' AND "feed.name" = 'Accessible-VNC';
 ```
 
-1.0.4 Bugfix release (unreleased)
+1.0.5 Bugfix release (unreleased)
+---------------------------------
+### Configuration
+
+### Libraries
+
+### Postgres databases
+
+1.0.4 Bugfix release (2018-04-20)
 ---------------------------------
 
 ### Postgres databases

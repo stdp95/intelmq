@@ -51,7 +51,7 @@ class GSBExpertBot(Bot):
             response = self.query_gsb(url)
 
             if response:
-                event.add("extra.%sgsb_blacklisted" % key, True)
+                #event.add("extra.%sgsb_blacklisted" % key, True)
                 event.add("extra.%sgsb_tags" % key, response)
 
         self.send_message(event)
