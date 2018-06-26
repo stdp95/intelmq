@@ -8,11 +8,14 @@ from intelmq.lib import utils
 
 class MalShareExpertBot(Bot):
 
+    def init(self):
+        self.api_key = getattr(self.parameters, "api_key", None)
+
     def process(self):
         message = self.receive_message()
-        hash = message.get("malware.hash.md5")
-        data = requests.get(url="https://malshare.com/api.php?api_key=7523014f80764ae82afffb519fd73fc20d851i2"
-                            "e158ad622af3fa3e903e4b12bd&action=details&hash=%s" % (hash))
+        md_hash = message.get("malware.hash.md5")
+        data = requests.get(url="https://malshare.com/api.php?api_key={api_key}&action=details&hash={hash_value}"
+                                .format(api_key=self.api_key, hash_value=md_hash))
         feed = json.loads(data.content.decode('utf-8'))
         if "SHA1" in feed:
             message.add("malware.hash.sha1", feed["SHA1"])

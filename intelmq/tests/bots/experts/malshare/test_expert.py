@@ -4,8 +4,12 @@ Testing MalShareExpertBot.
 """
 
 import unittest
+import json
+
+from pkg_resources import resource_filename
 
 import intelmq.lib.test as test
+from intelmq.lib.utils import load_configuration
 from intelmq.bots.experts.malshare.expert import MalShareExpertBot
 
 
@@ -36,8 +40,12 @@ class TestMalShareExpertBot(test.BotTestCase, unittest.TestCase):
     """
 
     @classmethod
-    def set_bot(self):
-        self.bot_reference = MalShareExpertBot
+    def set_bot(cls):
+        cls.bot_reference = MalShareExpertBot
+        # Configuring path to  the api key stored at parser directory in default.json file
+        config_path = resource_filename('intelmq', 'bots/experts/malshare/default.json')
+        api = json.loads(open(config_path).read())
+        cls.sysconfig = {'api_key': key[0]["api_key"]}
 
     def test_event(self):
         self.input_message = EXAMPLE_INPUT

@@ -734,6 +734,7 @@
             "description": "MalShare bot is responsible for adding data into the events through hash values",
             "module": "intelmq.bots.experts.malshare.expert",
             "parameters": {
+                "api_key": null
             }
     },
         "AddTime": {
