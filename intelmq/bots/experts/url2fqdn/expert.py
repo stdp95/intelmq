@@ -16,13 +16,19 @@ class Url2fqdnExpertBot(Bot):
 
             key_url = key + "url"
             key_fqdn = key + "fqdn"
+            key_path = key + "urlpath"
             if key_url not in event:
+                continue
+            if key_path in event and not self.overwrite:
                 continue
             if key_fqdn in event and not self.overwrite:
                 continue
 
-            hostname = urlparse(event.get(key_url)).hostname
-            event.add(key_fqdn, hostname, overwrite=True, raise_failure=False)
+            url = urlparse(event.get(key_url))
+
+            event.add("source.ip", url.hostname, overwrite=True, raise_failure=False)
+            event.add(key_fqdn, url.hostname, overwrite=True, raise_failure=False)
+            event.add(key_path, url.path, overwrite=True, raise_failure=False)
 
         self.send_message(event)
         self.acknowledge_message()

@@ -6,7 +6,7 @@ Testing url2fqdn.
 import unittest
 
 import intelmq.lib.test as test
-from intelmq.bots.experts.url2fqdn.expert import Url2fqdnExpertBot
+from intelmq.bots.experts.url2fqdn2.expert import Url2fqdnExpertBot
 
 EXAMPLE_INPUT_1 = {"__type": "Event",
                    "source.url": "http://example.com/something/index.php",
